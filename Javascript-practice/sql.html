@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var records = [
+            { name: "John Doe", age: 25, city: "New York" },
+            { name: "Jane Doe", age: 27, city: "London" },
+            // ... add more records here
+        ];
+
+        var sql = "";
+        for (var i = 0; i < records.length; i++) {
+            var record = records[i];
+            sql += "INSERT INTO students (name, age, city) VALUES ('" + record.name + "', " + record.age + ", '" + record.city + "');\n";
+        }
+
+        
+        const randomString = () => {
+            return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        };
+
+        const generateInsertQuery = (tableName, columns, numRecords) => {
+            let query = "";
+            for (let i = 0; i < numRecords; i++) {
+                query += `INSERT INTO ${tableName} (${columns.join(", ")}) VALUES (${randomString()}, ${randomString()});\n`;
+            }
+            return query;
+        };
+
+        const tableName = "example_table";
+        const columns = ["column_1", "column_2"];
+        const numRecords = 10;
+
+        console.log(generateInsertQuery(tableName, columns, numRecords));
+
+
+        //sql insert
+        var collageName = ['SPU','GEC BHAVNAGAR','GEC PATAN','IIM AHMEDABAD','IIT DELHI','IIT MUMBAI','IIT KHARAGPUR','GCET','BVM','NALANDA VIDHYALAYA','NIRMA UNIVERCITY','ADIT'];
+        var citys = ['mahuva','bhavnagar','surat','ahmedabad','anand','vadodara','bharuch','pune','mumbai','delhi','banglor'];
+
+        var insert = '';
+
+        for(let i=0; i<20; i++){
+            var clg = Math.floor(Math.random() = collageName.length);
+            var city = Math.floor(Math.random() * city.length);
+
+            insert = `insert into collages(name,city) values('${name[collageName]}','${city[citys]}')`;
+        }
+        document.write(insert);
+
+
+
+
+    </script>
+</body>
+
+</html>

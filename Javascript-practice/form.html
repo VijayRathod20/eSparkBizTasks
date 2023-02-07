@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JobApplication</title>
+        <style>
+      div{
+        margin-top: 20px;
+        display: flexbox;
+      }
+      input{
+        padding: 10px;
+      }
+      label{
+        display: block;
+      }
+      input[type=submit]:hover {
+        background-color: #45a049;
+    }
+    .container{
+        padding: auto;
+        border: 2px solid black;
+        margin-left: 400px;
+        margin-right: 400px;
+        text-align: center;
+    }
+    
+    </style>
+       <script>
+        function validateform(){  
+        var name=document.getElementById("firstName"); 
+        var password=document.myform.password.value;  
+      
+    if (name==null || name==""){  
+      alert("Name can't be blank");  
+      return false;  
+    }else if(password.length<6){  
+      alert("Password must be at least 6 characters long.");  
+      return false;  
+      }  
+    }  
+    </script>
+    </head>
+    <body>
+        <div class="container">
+            <form action="#" method="post" onsubmit="validateform()" name="form">
+                <div><h1>Job Application</h1></div>
+                <div>
+                    <label for="firstName">First Name </label>
+                    <input type="text" id="firstName" placeholder="Enter First
+                        Name">
+                    <span id="fname"></span>
+                </div>
+
+                <div>
+                    <label for="lastName">Last Name</label>
+                    <input type="text" placeholder="Enter Last Name"
+                        class="lastName">
+                </div>
+
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" placeholder="Enter your Email"
+                        class="email" id="mail">
+                </div>
+
+                <div class="gender">
+                    <label for="gender">Gender</label>
+                    <input type="radio" value="Male" name="gender">
+                    <label for="male">Male</label>
+                    <input type="radio" value="Fmale" name="gender">
+                    <label for="female">Female</label>
+                </div>
+
+                <div>
+                    <label for="designation">Select your designation</label>
+                    <select name="desi" id="designation">
+                        <option value="Web developer">Web developer</option>
+                        <option value="Android developer">Android developer</option>
+                        <option value="ios developer">IOS developer</option>
+                    </select>
+                </div>
+
+                <div class="button">
+                    <input type="submit" name="submit" id="submit"
+                        value="submit">
+                </div>
+            </form>
+        </div>
+
+     
+    </body>
+</html>

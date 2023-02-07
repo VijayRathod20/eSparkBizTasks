@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            background-color: red;
+        }
+
+        table {
+            margin: auto;
+            cursor: pointer;
+        }
+
+        tr,
+        td {
+            border: 1px solid whitesmoke;
+            height: 150px;
+            width: 200px;
+            background-color: teal;
+        }
+
+        #cell {
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="table">
+            <table align="center" id="myTable">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td id="cell"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div class="newTable">
+            <table id="newTable"> </table>
+        </div>
+    </div>
+    <script>
+        
+        const cells  = document.querySelectorAll('td');
+        cells.forEach(function(cell){
+            cell.addEventListener('click',function(){
+                gerateTable;
+               
+            })
+        })
+        
+        function gerateTable(){
+           
+            const table = document.getElementById("newTable");
+            for(var i=0; i<8; i++){
+                let rows = document.createElement('tr');
+                
+
+                for(var j=0; j<8; j++){
+                    let columns = document.createElement('td');
+                    rows.appendChild(columns);
+            
+                }
+                table.appendChild(rows);
+            }
+          
+            
+           
+        }
+       
+
+    </script>
+</body>
+
+</html>

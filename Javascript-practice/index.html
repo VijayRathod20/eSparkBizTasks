@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <p id="p" onkeydown="alert('hello')"> test</p>
+  
+  
+  <ul>
+    <li class="cl">list 1</li>
+    <li id="first"> list 2</li> 
+    <li class="cl">list 3</li>
+  </ul>
+
+             
+  
+ 
+  <h2>heading 1</h2>
+  <p class="prg">paragragh 1</p>
+  <h2>heading 2</h2>
+  <p class="prg">paragragh 2</p>
+
+  <script>
+    // var name = "vijay";
+    // var age = 28;
+    // var salary = 20.22;
+
+    // document.write("name = " + name + "<br>" + age + "<br>" + salary);
+
+    // var mark1 = parseInt(prompt("Enter marks 1"));
+    // var mark2 = parseInt(prompt("Enter marks 2"));
+    // var mark3 = parseInt(prompt("Enter marks 3"));
+
+    // var total = mark1+mark2+mark3;
+
+    // var parcentage = total/3;
+
+    // if(parcentage >= 80){
+    //   alert("your grade is a");
+    // }
+    // else if(parcentage >= 60){
+    //   alert("your grade is b");
+    // }
+    // else if(parcentage >= 40){
+    //   alert("your grade is b");
+    // }
+    // else{
+    //   alert("you are fail!");
+    // }
+    // var sum = 0;
+    // var product = 1;
+    // for(var i=1; i<= 5; i++){
+    //    product = product*i;
+       
+    // }
+    // document.write("sum = "+product);
+
+    // var actualpin = "4444";
+    // var pin;
+    // var count = 0;
+
+    // do{
+    //   pin = prompt("Enter pin");
+    //   count++;
+    // }while(pin != actualpin && count < 3);
+
+    // if(pin == actualpin){
+    //   document.write("Welcome user");
+    // }else{
+    //   document.write("Account Locked");
+    // }
+  // var favcolor = prompt("Write your favorite color");
+  // switch(favcolor){
+  //   case 'red':
+  //     alert("this is not your favorite color");
+  //     break;
+  //     case 'blue':
+  //     alert("this is your favorite color");
+  //     break;
+  // }
+
+   let eml = document.getElementById("first");
+   eml.innerHTML = '<p> hello <p>';
+
+    let elms = document.getElementsByClassName("cl");
+    for(let i=0; i<elms.length; i++){
+      elms[i].innerHTML = 'hello'
+    }
+
+    let header = document.getElementsByTagName('h2');
+    for(var i=0; i<header.length; i++){
+      header[i].innerHTML= 'hey how are you!'
+    }
+    
+    let paragragh = document.querySelectorAll('p.prg');
+    for(var i=0; i<paragragh.length; i++){
+      paragragh[i].innerHTML = 'you are changed!'
+    }
+   
+
+  </script>
+</body>
+</html>

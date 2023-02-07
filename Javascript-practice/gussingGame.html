@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gussing Game</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .container{
+        width: 70%;
+        margin: auto;
+        text-align: center;
+    }
+    .dice{
+        text-align: center;
+        display: inline-block;
+        
+        
+    }
+
+    body{
+        background-color: antiquewhite;
+    }
+    img{
+        background-color: rebeccapurple;
+        margin: 10px;
+        height: 150px;
+        width: 150px;
+    }
+    button{
+        padding: 10px;
+        background-color: aqua;
+    }
+    h1{
+        color: blue;
+    }
+    
+</style>
+<body>
+    <div class="container">
+        <h1 id="status">Guss who will win</h1>
+
+        <div class="dice">
+            <p>Player 1</p>
+            <img src="images/dice1.png" alt="" srcset=""  id="check1">
+        </div>
+
+        <div class="dice">
+            <p>Player 2</p>
+            <img src="images/dice1.png" alt="" srcset=""  id="check2">
+        </div>
+        <div>
+            <button onclick="diceGame()">clickme</button>
+        </div>
+    </div>
+
+    <script>
+        diceGame = () => {
+        const status = document.getElementById('status');    
+        const play1 = Math.floor((Math.random() * 6) + 1);
+        const play1dice = `images/dice${play1}.png`;
+        document.getElementById('check1').setAttribute('src',play1dice);
+
+        const play2 = Math.floor((Math.random() * 6) + 1);
+        const play2dice = `images/dice${play2}.png`;
+        document.getElementById('check2').setAttribute('src',play2dice);
+
+        if(play1 > play2){
+            status.innerHTML = "Player 1 Won";
+        }else if(play1 < play2){
+            status.innerHTML = "Player 2 Won";
+        }   
+        else{
+            status.innerHTML = "Draw";
+        }
+        }
+    </script>
+</body>
+</html>

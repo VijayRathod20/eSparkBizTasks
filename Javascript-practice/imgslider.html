@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+           
+        }
+
+        .slide-container{
+            position: relative;
+            width: 100%;
+           
+           
+        }
+
+        .slide img {
+            width: 100%;
+        }
+
+        .arrow {
+            cursor: pointer;
+            position: absolute;
+            color: black;
+            top: 45%;
+            background-color: white;
+            padding: 8px 20px;
+            border-radius: 50%;
+            
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .caption {
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px 0px;
+        }
+
+        .slide {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <div class="slide">
+            <img src="img1.jpg" alt="">
+            <div class="caption">Caption 1</div>
+        </div>
+        <div class="slide">
+            <img src="img3.jpg" alt="">
+            <div class="caption">Caption 1</div>
+        </div>
+        <div class="slide">
+            <img src="img2.jpg" alt="">
+            <div class="caption">Caption 1</div>
+        </div>
+
+        <span class="arrow prew" onclick="plusSlides(-1)">&#10094</span>
+        <span class="arrow next" onclick="plusSlides(1)">&#10095</span>
+
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span> 
+            <span class="dot" onclick="currentSlide(2)"></span> 
+            <span class="dot" onclick="currentSlide(3)"></span> 
+          </div>
+    </div>
+    <script>
+
+
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        tr,
+        td {
+            border: 2px solid black;
+            
+        }
+        table{
+            height: 300px;
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container"></div>
+</body>
+<script>
+    var rows = 3;
+    var cols = 3;
+    var container = document.querySelector(".container");
+    createTabel(rows, cols);
+
+    function createTabel(rows, cols) {
+        var table = document.createElement("table");
+        for (var i = 0; i < rows; i++) {
+            var row = document.createElement("tr");
+            for (var j = 0; j < cols; j++) {
+                var col = document.createElement("td");
+                row.appendChild(col);
+            }
+            table.appendChild(row);
+        }
+        container.appendChild(table);
+
+        var tds = document.querySelectorAll('td');
+        var random = Math.floor(Math.random() * tds.length);
+
+        var R = Math.floor(Math.random() * 255);
+        var G = Math.floor(Math.random() * 255);
+        var B = Math.floor(Math.random() * 255);
+        tds.forEach(td => {
+            td.style.background = `rgb(${R},${G},${B})`;
+        });
+        tds[random].style.background = `rgba(${R},${G},${B},0.4)`;
+
+        tds[random].addEventListener('click', function () {
+            table.remove();
+            createTabel(++rows, ++cols);
+        });
+
+
+    }
+</script>
+
+</html>

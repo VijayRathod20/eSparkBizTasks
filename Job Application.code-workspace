@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../Job Application"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "node"
+	}
+}

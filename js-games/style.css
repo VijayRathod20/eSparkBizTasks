@@ -1,0 +1,21 @@
+table,tr,td{
+    border: 2px solid black;
+    width: 200px;
+    height: 50px;
+}
+.cell{
+    width: 75px;
+    height: 75px;
+    border: 2px solid black;
+    font-size: 50px;
+    cursor: pointer;
+}
+#cellContainer{
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    width: 225px;
+    margin: auto;
+}
+#gameContainer{
+    text-align: center;
+}

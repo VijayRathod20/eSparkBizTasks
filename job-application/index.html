@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BasicInfo</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h2>Job Application Form</h2>
+    <form action="submit.php" method="post" onsubmit="return validate()">
+            <fieldset>
+                <legend>Basic Info</legend>
+                <div class="baseinfo">
+                <div class="block">
+                    <label for="fname">First Name:</label>
+                    <input type="text" id="fname" name="fname" />
+                    <label for="lname">Last Name:</label>
+                    <input type="text" id="lname" name="lname" />
+                </div>
+
+                <div class="gender">
+                    <label for="gender">Gender:</label>
+                    <input type="radio" id="male" name="gender" value="male" />
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female" />
+                    <label for="female">Female</label>
+                    <input type="radio" id="other" name="gender" value="other" />
+                    <label for="other">other</label>
+                    <br><br>
+
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" id="dob" name="dob" />
+                </div>
+
+                <div class="block">
+                    <label for="designation">Desigation:</label>
+                    <input type="text" id="designation" name="designation" />
+
+                    <label for="address1">Address1:</label>
+                    <input type="text" id="address1" name="address1" />
+                </div>
+
+                <div class="block">
+                    <label for="address2">Address2:</label>
+                    <input type="text" id="address2" name="address2" />
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" />
+                </div>
+
+                <div class="block">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" name="phone" />
+
+                    <label for="city">City:</label>
+                    <input type="text" id="phone" name="phone" />
+                </div>
+
+                <div>
+                    <label for="state">State:</label>
+                    <select id="state" name="state">
+                        <option value="gujarat">Gujarat</option>
+                        <option value="dilhi">Delhi</option>
+                        <option value="up">UP</option>
+                        <option value="panjab">Panjab</option>
+                    </select>
+
+                    <label for="zipcode">Zipcode:</label>
+                    <input type="text" id="zipcode" name="zipcode" />
+                </div>
+
+                <div>
+                    <label for="status">Relationship Status:</label>
+                    <select name="status" id="status">
+                        <option value="single">Single</option>
+                        <option value="married">Married</option>
+                    </select>
+                </div>
+            </div>
+            </fieldset>
+       
+        <div class="form-group">
+            <fieldset>
+                <legend>Education Details</legend>
+                <div id="education-details" class="block">
+                    <div class="education-item">
+                        <label for="degree">courseName</label>
+                        <input type="text" name="degree" name="degree" />
+                        <label for="boardName">Name of Board</label>
+                        <input type="text" name="board[]" class="board" />
+                        <label for="passingYear">Passing Year</label>
+                        <input type="text" name="passingYear" />
+                        <label for="percentage">percentage</label>
+                        <input type="text" name="percentage" />
+                    </div>
+                </div>
+                <button type="button" id="add-education-button">Add More</button>
+            </fieldset>
+        </div>
+        <div class="form-group">
+            <fieldset>
+                <legend>Work Experience</legend>
+                <div id="experience">
+                    <div id="experience-details">
+                        <label for="company-name">Comapany Name</label>
+                        <input type="text" id="company-name" name="company-name" />
+                        <label for="designation">Designation:</label>
+                        <input type="text" id="designation" name="designation" />
+                        <label for="start-date">Form:</label>
+                        <input type="date" id="start-date" name="start-date" />
+                        <label for="end-date">To:</label>
+                        <input type="date" id="end-date" name="end-date" />
+                    </div>
+                </div>
+                <button type="button" id="add-experience-button">Add more</button>
+            </fieldset>
+        </div>
+        <div class="form-grop">
+            <fieldset>
+                <legend>Language known</legend>
+                <div>
+                    <label for="gujarati">Gujarati:</label>
+                    <input type="checkbox" id="gujarati" name="gujarati" />
+                    <label for="read">Read:</label>
+                    <input type="checkbox" id="read" name="read" />
+                    <label for="write">Write:</label>
+                    <input type="checkbox" id="write" name="write" />
+                    <label for="speak">Speak:</label>
+                    <input type="checkbox" id="speak" name="speak" />
+                </div>
+                <div>
+                    <label for="hindi">Hindi:</label>
+                    <input type="checkbox" id="hindi" name="hindi" />
+                    <label for="read">Read:</label>
+                    <input type="checkbox" id="read" name="read" />
+                    <label for="write">Write:</label>
+                    <input type="checkbox" id="write" name="write" />
+                    <label for="speak">Speak:</label>
+                    <input type="checkbox" id="speak" name="speak" />
+                </div>
+                <div>
+                    <label for="english">English:</label>
+                    <input type="checkbox" id="english" name="english" />
+                    <label for="read">Read:</label>
+                    <input type="checkbox" id="read" name="read" />
+                    <label for="write">Write:</label>
+                    <input type="checkbox" id="write" name="write" />
+                    <label for="speak">Speak:</label>
+                    <input type="checkbox" id="speak" name="speak" />
+                </div>
+            </fieldset>
+        </div>
+        <div class="form-group">
+            <fieldset>
+                <legend>Technologies You Know</legend>
+                <div>
+                    <label for="php">PHP</label>
+                    <input type="checkbox" name="php" id="php" />
+                    <label for="beginner">Beginner</label>
+                    <input type="radio" name="experties" id="beginner" />
+                    <label for="beginner">Intermediate</label>
+                    <input type="radio" name="experties" id="Intermediate" />
+                    <label for="beginner">Expert</label>
+                    <input type="radio" name="experties" id="Expert" />
+                </div>
+                <div>
+                    <label for="mysql">MYSQL</label>
+                    <input type="checkbox" name="mysql" id="mysql" />
+                    <label for="beginner">Beginner</label>
+                    <input type="radio" name="experties" id="beginner" />
+                    <label for="beginner">Intermediate</label>
+                    <input type="radio" name="experties" id="Intermediate" />
+                    <label for="beginner">Expert</label>
+                    <input type="radio" name="experties" id="Expert" />
+                </div>
+                <div>
+                    <label for="oracle">Oracle</label>
+                    <input type="checkbox" name="oracle" id="oracle" />
+                    <label for="beginner">Beginner</label>
+                    <input type="radio" name="experties" id="beginner" />
+                    <label for="beginner">Intermediate</label>
+                    <input type="radio" name="experties" id="Intermediate" />
+                    <label for="beginner">Expert</label>
+                    <input type="radio" name="experties" id="Expert" />
+                </div>
+                <div>
+                    <label for="laravel">Laravel</label>
+                    <input type="checkbox" name="laravel" id="laravel" />
+                    <label for="beginner">Beginner</label>
+                    <input type="radio" name="experties" id="beginner" />
+                    <label for="beginner">Intermediate</label>
+                    <input type="radio" name="experties" id="Intermediate" />
+                    <label for="beginner">Expert</label>
+                    <input type="radio" name="experties" id="Expert" />
+                </div>
+            </fieldset>
+        </div>
+        <div class="form-group">
+            <fieldset>
+                <legend>Reference Contact</legend>
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" />
+                    <label for="contact">Contact No</label>
+                    <input type="text" name="contact" />
+                    <label for="relation">Relation</label>
+                    <input type="text" name="relation" />
+                </div>
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" />
+                    <label for="contact">Contact No</label>
+                    <input type="text" name="contact" />
+                    <label for="relation">Relation</label>
+                    <input type="text" name="relation" />
+                </div>
+            </fieldset>
+        </div>
+        <div class="form-group">
+            <fieldset>
+                <legend>Preferances</legend>
+                <div class="location" style="margin-right: 1000px; padding: auto">
+                    <ul style="border: 1px solid black">
+                        <li>Prefered Location</li>
+                        <select name="location" id="location">
+                            <option value="ahmedabad">Ahmedabad</option>
+                            <option value="banglore">Banglore</option>
+                            <option value="chennai">Chennai</option>
+                            <option value="pune">Pune</option>
+                        </select>
+                    </ul>
+                </div>
+                <div>
+                    <label for="notice">Notice Period</label>
+                    <input type="text" name="notice" id="notice" />
+                    <label for="expected">Expected CTC</label>
+                    <input type="text" name="expected" id="expected" />
+                    <label for="current">Current CTC</label>
+                    <input type="text" name="current" id="current" />
+                </div>
+                <div>
+                    <label for="department">Department</label>
+                    <select name="department" id="department">
+                        <option value="hr">HR</option>
+                        <option value="design">Design</option>
+                        <option value="development">Development</option>
+                    </select>
+                </div>
+            </fieldset>
+        </div>
+        <input type="submit" value="submit" onsubmit="validate()">
+    </form>
+</body>
+
+<script src="script.js"></script>
+
+</html>

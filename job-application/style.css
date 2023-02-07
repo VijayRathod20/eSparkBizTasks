@@ -1,0 +1,27 @@
+body{
+    background-color: lightcyan;
+}
+
+input{  
+    padding: 10px;
+}
+
+.block{
+    display: grid;
+    grid-template-rows: auto;
+    
+}
+div{
+    padding: 10px;
+}
+            
+.baseinfo{
+    margin-left: 100px;
+    margin-right: 100px;
+}
+#state{
+    margin-right: 20px;
+}
+fieldset{
+    margin-bottom: 50px;
+}

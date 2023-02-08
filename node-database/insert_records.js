@@ -16,27 +16,46 @@ connection.connect((err) => {
   console.log('Connected to the MySQL database');
 });
 
-const generateRecords = () => {
-    let records = [];
-    for (let i = 0; i < 1500; i++) {
-      records.push([
-        `student_${i}`, 
-        `student_${i}@email.com`,
-        Math.floor(Math.random() * 100),
-       
-      ]);
-    }
-    return records;
-  };
-  
-  app.get('/insert', (req, res) => {
-    const records = generateRecords();
-    const sql = `INSERT INTO student (name, email, score) VALUES ?`;
-    connection.query(sql, [records], (err, result) => {
+
+var first_name = ['vijay', 'pooja', 'kartik', 'manthan', 'milan', 'jaini',
+  'isha', 'harmil', 'bharti', 'harsh', 'khushi', 'om', 'path', 'thushar', 'rajesh',
+  'jay', 'ajay', 'jaydip', 'vaishvi', 'vrusha', 'dixita', 'pranav', 'akshay', 'priya', 'tulsi',
+  'drashti', 'prachi', 'mayuri', 'anushka', 'dipika', 'janvi', 'salman', 'hritik', 'tiger', 'sidharth',
+  'varun', 'abhishekh', 'ranbir', 'jack', 'ronaldo', 'messi', 'neymar', 'virat', 'angela', 'elizabeth',
+  'alexgender', 'william', 'dominic', 'thore', 'natasha', 'jessica', 'strange', 'pitter'];
+
+var last_name = ['rathod', 'modi', 'dave', 'vadher', 'patel', 'deep', 'sharma', 'kapoor'
+  , 'parker', 'torento', 'kohli', 'singh', 'parekh', 'sangvi', 'rupani', 'modi', 'malhotra',
+  'naydu', 'datt', 'gada', 'sodhi', ' Smith', 'Johnson', 'Williams', ' Brown', 'Jones',
+  'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez', 'Hernandez', ' Anderson',
+  'Thomas', 'Martin', 'Lewis', 'Walker', ' King', 'Torres', 'Flores', 'Carter', 'developer', 'engineer'];
+
+
+
+app.get('/insert', (req, res) => {
+
+  for (let i = 0; i < 10; i++) {
+    random_fname = Math.floor(Math.random() * first_name.length);
+    random_lname = Math.floor(Math.random() * last_name.length);
+    let email = first_name[random_fname] + last_name[random_lname] + "@gmail.com";
+    const start = new Date(1970, 0, 1);
+    const end = new Date();
+    const randomTimestamp = start.getTime() + Math.random() * (end.getTime() - start.getTime());
+    const randomDate = new Date(randomTimestamp);
+    var date =  randomDate.toISOString().split('T')[0];
+
+    const query = `insert into student_express(first_name,last_name,email,dob) 
+    values('${first_name[random_fname]}','${last_name[random_lname]}','${email}','${date}')`;
+    connection.query(query, (err, res) => {
       if (err) throw err;
-      console.log(`Inserted ${result.affectedRows} rows`);
-      res.send(`Inserted ${result.affectedRows} rows`);
+      console.log('row added susscess');
+      
+
     });
-  });
-  
-  
+   
+
+  }
+  res.send("Data Inserted Success!");
+
+});
+

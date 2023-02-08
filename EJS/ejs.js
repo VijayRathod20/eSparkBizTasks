@@ -31,15 +31,19 @@ conn.connect(function(err){
 //    });
 // })
 app.get('/:page', (req, res) => {
-   let page = req.params.page || 1;
+   let page = parseInt(req.params.page) || 1;
    let limit = 10;
    let offset = (page - 1) * limit;
+
+   if (isNaN(offset)) {
+      offset = 0;
+    }
  
    conn.query(`SELECT * FROM student_express LIMIT ${offset}, ${limit}`, (err, result) => {
      if (err) throw err;
-     res.render('table', { data: result });
+     res.render('table', { data: result,pages:page});
    });
  });
  
-app.listen(8080);
-console.log('Server is listening on port 8080');
+app.listen(8090);
+console.log('Server is listening on port 8090');

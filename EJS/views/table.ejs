@@ -1,46 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Table_Data</title>
     <style>
-        th,td{
+        th,
+        td {
             border: 2px solid blue;
             border-radius: 10px;
             padding: 10px;
         }
+        button{
+            padding: 10px;
+            border: 2px solid blue;
+            margin: 10px;
+           
+        }
+        button:hover{
+            background-color: aquamarine;
+        }
+        a{
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+            text-decoration: none;
+        }
     </style>
 </head>
+
 <body>
     <h2>Table Data</h2>
     <table>
         <thead>
-          <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Date Of Birth</th>
-            
-          </tr>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Date Of Birth</th>
+
+            </tr>
         </thead>
         <tbody>
-          <% for (let i = 0; i < data.length; i++) { %>
-            <tr>
-              <td><%= data[i].id %></td>
-              <td><%= data[i].first_name %></td>
-              <td><%= data[i].last_name %></td>
-              <td><%= data[i].email %></td>
-              <td><%= data[i].dob.getDay()%>-<%= data[i].dob.getMonth()%>-<%= data[i].dob.getFullYear()%></td>
-             
-            </tr>
-          <% } %>
-        </tbody>
-      </table>
+            <% for (let i=0; i < data.length; i++) { %>
+                <tr>
+                    <td>
+                        <%= data[i].id %>
+                    </td>
+                    <td>
+                        <%= data[i].first_name %>
+                    </td>
+                    <td>
+                        <%= data[i].last_name %>
+                    </td>
+                    <td>
+                        <%= data[i].email %>
+                    </td>
+                    <td>
+                        <%= data[i].dob.getDay()%>-<%= data[i].dob.getMonth()%>-<%= data[i].dob.getFullYear()%>
+                    </td>
 
-     
-      
+                </tr>
+                <% } %>
+        </tbody>
+    </table>
+    <br>
+    <% if (data.length==10) { %>
+        <button><a href="/<%= parseInt(pages) - 1 %>">Previous</a></button>
+        <% } %>
+
+    <% if (data.length==10) { %>
+        <button><a href="/<%= parseInt(pages) + 1 %>">Next</a></button>
+        <% } %>
+
 </body>
+
 </html>

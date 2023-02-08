@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`Listening on port ${port}..`));
 
 const connection = mysql.createConnection({
@@ -34,18 +34,24 @@ var last_name = ['rathod', 'modi', 'dave', 'vadher', 'patel', 'deep', 'sharma', 
 
 app.get('/insert', (req, res) => {
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 100; i++) {
     random_fname = Math.floor(Math.random() * first_name.length);
     random_lname = Math.floor(Math.random() * last_name.length);
     let email = first_name[random_fname] + last_name[random_lname] + "@gmail.com";
     const start = new Date(1970, 0, 1);
-    const end = new Date();
-    const randomTimestamp = start.getTime() + Math.random() * (end.getTime() - start.getTime());
-    const randomDate = new Date(randomTimestamp);
-    var date =  randomDate.toISOString().split('T')[0];
+    const end = new Date(2002, 0, 1);
+    const date = ['2001-01,20','2000-01,20','2001-01-22','2001-01-23',
+    '2001-01-25','2001-01-30','2001,01,26','2001-01-27','2001-01-28',
+    '2001-01-29','1999-01-20','1999-2-20','1999-04-10','1999-05-05',
+    '1999-03-22','1999-01-01','1998-03-20','1999-08-15','1997-02-20',
+    '1997-02-20','1997-02-03','1997-02-16'];
+    date_random = Math.floor(Math.random() * date.length);
+    // const randomTimestamp = start.getTime() + Math.random() * (end.getTime() - start.getTime());
+    // const randomDate = new Date(randomTimestamp);
+    // var date =  randomDate.toISOString().split('T')[0];
 
     const query = `insert into student_express(first_name,last_name,email,dob) 
-    values('${first_name[random_fname]}','${last_name[random_lname]}','${email}','${date}')`;
+    values('${first_name[random_fname]}','${last_name[random_lname]}','${email}','${date[date_random]}')`;
     connection.query(query, (err, res) => {
       if (err) throw err;
       console.log('row added susscess');

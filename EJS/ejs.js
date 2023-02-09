@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var mysql = require('mysql2');
-var Promise = require('promise');
+
 
 
 //set ejs as template ingine;
@@ -30,20 +30,44 @@ conn.connect(function(err){
 //       res.render('table',{data:result})
 //    });
 // })
-app.get('/:page', (req, res) => {
-   let page = parseInt(req.params.page) || 1;
-   let limit = 10;
-   let offset = (page - 1) * limit;
+// app.get('/:page', (req, res) => {
+//    let page = parseInt(req.params.page) || 1;
+//    let limit = 10;
+//    let offset = (page - 1) * limit;
 
-   if (isNaN(offset)) {
-      offset = 0;
-    }
+//    if (isNaN(offset)) {
+//       offset = 0;
+//     }0
+ 
+//    conn.query(`SELECT * FROM student_express LIMIT ${offset}, ${limit}`, (err, result) => {
+//      if (err) throw err;
+//      res.render('table', { data: result,pages:page});
+//    });
+//  });
+
+app.get('/:page', (req, res) => {
+   let pag = parseInt(req.params.page) || 1;
+   let limit = 10;
+   let offset = (pag - 1) * limit;
  
    conn.query(`SELECT * FROM student_express LIMIT ${offset}, ${limit}`, (err, result) => {
      if (err) throw err;
-     res.render('table', { data: result,pages:page});
+ 
+     conn.query('SELECT COUNT(*) as count FROM student_express', (err, countResult) => {
+       if (err) throw err;
+       let totalPages = Math.ceil(countResult[0].count / limit);
+       
+       let pages = [];
+       for (let i = 1; i <= totalPages; i++) {
+         pages.push(i);
+       }
+ 
+       res.render('table', { data: result, page: pag, pages: pages });
+     });
    });
  });
  
+ 
+
 app.listen(8090);
 console.log('Server is listening on port 8090');

@@ -76,12 +76,13 @@ conn.connect(function (err) {
 //   );
 // });
 
-app.get("/:page/:sort/:order", (req, res) => {
+app.get("/:page/:sort/:order/", (req, res) => {
   var pag = parseInt(req.params.page) || 1;
   var limit = 10;
   var offset = (pag - 1) * limit;
   var sortBy = req.params.sort || 'first_name';
   var sortOrder = req.params.order;
+ 
   
   
 
@@ -100,7 +101,7 @@ app.get("/:page/:sort/:order", (req, res) => {
           for (let i = 1; i <= totalPages; i++) {
             pages.push(i);
           }
-
+          
           res.render("table", {
             data: result,
             page: pag,

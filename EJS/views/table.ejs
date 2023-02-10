@@ -61,7 +61,7 @@
       <ul class="pagination justify-content-center">
         <li class="page-item">
           <% if (page !== 1) { %>
-          <a href="/<%= page - 1 %>" class="page-link">Previous</a>
+          <a href="/<%= (page-1) %>/<%= sort %>/<%= order %>" class="page-link">Previous</a>
           <% } %>
         </li>
         <li>
@@ -72,7 +72,7 @@
 
         <li class="page-item">
           <% if (page !== pages.length) { %>
-          <a href="/<%= page + 1%>" class="page-link">Next</a>
+          <a href="/<%= (page+1) %>/<%= sort %>/<%= order %>" class="page-link">Next</a>
           <% } %>
         </li>
       </ul>
@@ -80,9 +80,11 @@
   </body>
   <script>
     var td = document.querySelectorAll("td");
+    var select = document.getElementById("select");
     td.forEach((e) => {
       e.setAttribute("class", "table-primary");
     });
+   
   </script>
  
 </html>

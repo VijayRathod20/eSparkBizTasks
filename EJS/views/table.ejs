@@ -21,6 +21,12 @@
         font-size: 20px;
         text-decoration: none;
       }
+      .active{
+        color: red;
+      }
+      button{
+        background-color: bisque;
+      }
     </style>
   </head>
 
@@ -29,11 +35,11 @@
     <table class="table">
       <thead class="table-dark">
         <tr>
-          <th>ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th>Date Of Birth</th>
+          <th><a href="/1/id/asc"">ID</a></th>
+          <th><a href="/1/first_name/asc">First Name</a></th>
+          <th><a href="/1/last_name/asc">Last Name</a></th>
+          <th><a href="/1/email/asc">Email</a></th>
+          <th><a href="/1/dob/asc">DOB</a></th>
         </tr>
       </thead>
       <tbody>
@@ -58,15 +64,15 @@
           <a href="/<%= page - 1 %>" class="page-link">Previous</a>
           <% } %>
         </li>
-        <li class="page-item">
+        <li>
           <% for (let i = 0; i < pages.length; i++) { %>
-          <a href="/<%= (i+1) %>"><%=(i+1)%></a>
+            <button><a href="/<%= (i+1) %>/<%= sort %>/<%= order %>" class="<%= pages[i] === page ? 'active' : '' %>"><%= (i+1) %></a></button>
           <% } %>
-        </li>
+          </li>
 
         <li class="page-item">
           <% if (page !== pages.length) { %>
-          <a href="/<%= page + 1 %>" class="page-link">Next</a>
+          <a href="/<%= page + 1%>" class="page-link">Next</a>
           <% } %>
         </li>
       </ul>
@@ -78,4 +84,5 @@
       e.setAttribute("class", "table-primary");
     });
   </script>
+ 
 </html>

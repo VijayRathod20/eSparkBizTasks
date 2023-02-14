@@ -11,7 +11,7 @@
 
 <body>
     <h2>Job Application Form</h2>
-    <form action="submit.php" method="post" onsubmit="return validate()">
+    <form action="submit.php" method="post">
             <fieldset>
                 <legend>Basic Info</legend>
                 <div class="baseinfo">
@@ -244,9 +244,9 @@
                 <div>
                     <label for="department">Department</label>
                     <select name="department" id="department">
-                        <option value="hr">HR</option>
-                        <option value="design">Design</option>
-                        <option value="development">Development</option>
+                        <% dep.forEach(function(d) {%>
+                        <option value="<%=d.option_name%>"><%=d.option_name%></option>
+                        <%});%>
                     </select>
                 </div>
             </fieldset>

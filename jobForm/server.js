@@ -71,4 +71,19 @@ app.get('/', (req, res) => {
 });
 });
 });
-  app.listen(8000);
+
+// Set up the route to handle form submissions
+app.post('/submit', (req, res) => {
+  // Retrieve the form data and insert it into the database
+  const data = req.body;
+  db.query('INSERT INTO basic_info SET ?', data, (err, result) => {
+    if (err) {
+      throw err;
+    }
+    res.send('Form submitted successfully');
+  });
+});
+
+
+
+app.listen(8000);

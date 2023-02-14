@@ -46,15 +46,15 @@
 
 <body>
   <h1>Job Appliaction Form</h1>
-  <form action="submit.php" method="post">
+  <form action="/submit" method="post">
     <fieldset>
       <legend>Basic Info</legend>
       <div class="baseinfo">
         <div class="block">
           <label for="fname">First Name:</label>
-          <input type="text" id="fname" name="fname" />
+          <input type="text" id="fname" name="first_name" />
           <label for="lname">Last Name:</label>
-          <input type="text" id="lname" name="lname" />
+          <input type="text" id="lname" name="last_name" />
         </div>
 
         <div class="gender">
@@ -91,7 +91,7 @@
           <input type="text" id="phone" name="phone" />
 
           <label for="city">City:</label>
-          <input type="text" id="phone" name="phone" />
+          <input type="text" id="phone" name="city" />
         </div>
 
         <div>
@@ -105,12 +105,12 @@
           </select>
 
           <label for="zipcode">Zipcode:</label>
-          <input type="text" id="zipcode" name="zipcode" />
+          <input type="text" id="zipcode" name="zip" />
         </div>
 
         <div>
           <label for="status">Relationship Status:</label>
-          <select name="status" id="status">
+          <select name="relation_status" id="status">
             <%relation.forEach(function(rel){%>
               <option value="<%=rel.option_name%>">
                 <%=rel.option_name%>
@@ -121,7 +121,7 @@
       </div>
     </fieldset>
 
-    <div class="form-group">
+    <!-- <div class="form-group">
       <fieldset>
         <legend>Education Details</legend>
         <div id="education-details" class="block">
@@ -249,7 +249,7 @@
           </select>
         </div>
       </fieldset>
-    </div>
+    </div> -->
     <input id="sub" type="submit" value="submit" />
   </form>
 </body>

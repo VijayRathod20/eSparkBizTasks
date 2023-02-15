@@ -73,15 +73,13 @@
 
         <div class="block">
           <label for="designation">Desigation:</label>
-          <input type="text" id="designation" name="designation" />
+          <input type="text" id="designation" name="job_designation" />
 
           <label for="address1">Address1:</label>
           <input type="text" id="address1" name="address1" />
         </div>
 
         <div class="block">
-          <label for="address2">Address2:</label>
-          <input type="text" id="address2" name="address2" />
           <label for="email">Email:</label>
           <input type="email" id="email" name="email" />
         </div>
@@ -121,12 +119,12 @@
       </div>
     </fieldset>
 
-    <!-- <div class="form-group">
+    <div class="form-group">
       <fieldset>
         <legend>Education Details</legend>
-        <div id="education-details" class="block">
+        <div id="education" class="block">
           <div class="education-item">
-            <select name="course" id="course">
+            <select name="course">
               <%course.forEach(function(c) {%>
                 <option value="<%=c.option_name%>">
                   <%=c.option_name%>
@@ -134,7 +132,7 @@
                 <%});%>
             </select>
             <label for="boardName">Name of Board</label>
-            <input type="text" name="board[]" class="board" />
+            <input type="text" name="board" class="board" />
             <label for="passingYear">Passing Year</label>
             <input type="text" name="passingYear" />
             <label for="percentage">percentage</label>
@@ -150,13 +148,13 @@
         <div id="experience">
           <div id="experience-details">
             <label for="company-name">Comapany Name</label>
-            <input type="text" id="company-name" name="company-name" />
+            <input type="text" id="company_name" name="company_name" />
             <label for="designation">Designation:</label>
-            <input type="text" id="designation" name="designation" />
+            <input type="text" id="designation" name="jobtitle" />
             <label for="start-date">Form:</label>
-            <input type="date" id="start-date" name="start-date" />
+            <input type="date" id="start-date" name="start_date" />
             <label for="end-date">To:</label>
-            <input type="date" id="end-date" name="end-date" />
+            <input type="date" id="end-date" name="end_date" />
           </div>
         </div>
         <button type="button" id="add-experience-button">Add more</button>
@@ -166,34 +164,39 @@
       <fieldset>
         <legend>Language known</legend>
         <%language.forEach(function(lan) {%>
-        <div>
-          <label for="<%=lan.option_name%>"><%=lan.option_name%>:</label>
-          <input type="checkbox" id="<%=lan.option_name%>" name="<%=lan.option_name%>" />
-          <label for="read">Read:</label>
-          <input type="checkbox" id="read" name="read" />
-          <label for="write">Write:</label>
-          <input type="checkbox" id="write" name="write" />
-          <label for="speak">Speak:</label>
-          <input type="checkbox" id="speak" name="speak" />
-        </div>
-        <%});%>
+          <div>
+            <label for="<%=lan.option_name%>">
+              <%=lan.option_name%>:
+            </label>
+            <input type="checkbox" value="<%=lan.option_name%>" name="Language" />
+            <label for="read">Read:</label>
+            <input type="checkbox" name="read" value="yes" />
+            <label for="write">Write:</label>
+            <input type="checkbox" name="write" value="yes" />
+            <label for="speak">Speak:</label>
+            <input type="checkbox" name="speak" value="yes" />
+
+          </div>
+          <%});%>
       </fieldset>
     </div>
     <div class="form-group">
       <fieldset>
         <legend>Technologies You Know</legend>
         <% tec.forEach(function(t) {%>
-        <div>
-          <label for="<%=t.option_name%>"><%=t.option_name%></label>
-          <input type="checkbox" name="<%=t.option_name%>" id="<%=t.option_name%>" />
-          <label for="beginner">Beginner</label>
-          <input type="radio" name="experties" id="beginner" />
+          <div>
+            <label for="<%=t.option_name%>">
+              <%=t.option_name%>
+            </label>
+            <input type="checkbox" value="<%=t.option_name%>" name="technology" />
+            <!-- <label for="beginner">Beginner</label>
+          <input type="radio" name="experties" value="beginner" />
           <label for="beginner">Intermediate</label>
-          <input type="radio" name="experties" id="Intermediate" />
+          <input type="radio" name="experties" value="Intermediate" />
           <label for="beginner">Expert</label>
-          <input type="radio" name="experties" id="Expert" />
-        </div>
-        <%});%>
+          <input type="radio" name="experties" value="Expert" /> -->
+          </div>
+          <%});%>
       </fieldset>
     </div>
     <div class="form-group">
@@ -201,17 +204,17 @@
         <legend>Reference Contact</legend>
         <div>
           <label for="name">Name</label>
-          <input type="text" name="name" />
+          <input type="text" name="rname" />
           <label for="contact">Contact No</label>
-          <input type="text" name="contact" />
+          <input type="text" name="rcontact" />
           <label for="relation">Relation</label>
           <input type="text" name="relation" />
         </div>
         <div>
           <label for="name">Name</label>
-          <input type="text" name="name" />
+          <input type="text" name="rname" />
           <label for="contact">Contact No</label>
-          <input type="text" name="contact" />
+          <input type="text" name="rcontact" />
           <label for="relation">Relation</label>
           <input type="text" name="relation" />
         </div>
@@ -236,38 +239,38 @@
           <label for="notice">Notice Period</label>
           <input type="text" name="notice" id="notice" />
           <label for="expected">Expected CTC</label>
-          <input type="text" name="expected" id="expected" />
-          <label for="current">Current CTC</label>
-          <input type="text" name="current" id="current" />
+          <input type="text" name="expected_ctc" id="expected" />
         </div>
         <div>
           <label for="department">Department</label>
           <select name="department" id="department">
-            <option value="hr">HR</option>
-            <option value="design">Design</option>
-            <option value="development">Development</option>
+            <% dep.forEach(function(d) {%>
+              <option value="<%=d.option_name%>">
+                <%=d.option_name%>
+              </option>
+              <%});%>
           </select>
         </div>
       </fieldset>
-    </div> -->
+    </div>
     <input id="sub" type="submit" value="submit" />
   </form>
 </body>
 <script>
-  const educationDetails = document.getElementById("education-details");
+  const educationDetails = document.getElementById("education");
   const addEducationButton = document.getElementById("add-education-button");
 
   addEducationButton.addEventListener("click", function () {
     const educationItem = document.createElement("div");
     educationItem.classList.add("education-item");
     educationItem.innerHTML = `
-          <select name="course" id="course">
+          <select name="course">
               <%course.forEach(function(c) {%>
               <option value="<%=c.option_name%>"><%=c.option_name%></option>
               <%});%>
             </select>
             <label for="boardName">Name of Board</label>
-            <input type="text" name="board[]" class="board" />
+            <input type="text" name="board" class="board" />
             <label for="passingYear">Passing Year</label>
             <input type="text" name="passingYear" />
             <label for="percentage">percentage</label>
@@ -287,13 +290,13 @@
     experienceItem.classList.add("experience-details");
     experienceItem.innerHTML = `
     <label for="company-name">Comapany Name</label>
-          <input type="text" id="company-name" name="company-name" required />
+          <input type="text" id="company-name" name="company_name"/>
           <label for="designation">Designation:</label>
-          <input type="text" id="designation" name="designation" required />
-          <label for="start-date">Form:</label>
-          <input type="date" id="start-date" name="start-date" required />
+          <input type="text" id="designation" name="designation"/>
+          <label for="start-date">From:</label>
+          <input type="date" id="start-date" name="start_date" />
           <label for="end-date">To:</label>
-          <input type="date" id="end-date" name="end-date" required />
+          <input type="date" id="end-date" name="end_date" />
     `;
     experience.appendChild(experienceItem);
   });

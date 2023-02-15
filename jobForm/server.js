@@ -11,8 +11,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'root',
-  database: 'job_application'
+  password: '',
+  database: 'hire'
 });
 
 // Connect to the database
@@ -25,7 +25,7 @@ db.connect((err) => {
 
 
 
-// Set up the route for the job application form
+
 app.get('/', (req, res) => {
   
   db.query('SELECT option_name FROM option_master where select_id = 1', (err, states) => {
@@ -59,7 +59,7 @@ app.get('/', (req, res) => {
                   throw err;
                 }
 
-      // Render the job application form and pass the data for the select boxes to the template
+      
       res.render('form', {state:states,relation:rel,location:location,dep:department,course:courses,language:languages,tec:technologies});
     });
   });
@@ -72,7 +72,7 @@ app.get('/', (req, res) => {
 });
 
 
-// Set up the route to handle form submissions
+
 app.post('/submit', (req, res) => {
   // Retrieve the form data and insert it into the database
  
@@ -147,16 +147,16 @@ app.post('/submit', (req, res) => {
 
       db.query(expSql,(err,result)=>{
         if(err) throw err;
-        console.log('exp inserted')
+        console.log('exp inserted');
       })
       }
     }
 
-// Get the languages the applicant knows
-const languages = req.body.Language;
+// Get the languages 
+const languages = req.body.Languages;
 console.log("languages"+languages);
 
-// Loop through each language and insert the proficiency level
+
 languages.forEach((language) => {
   const read = req.body.read ? 'yes' : 'no';
   const write = req.body.write ? 'yes' : 'no';
@@ -167,40 +167,26 @@ languages.forEach((language) => {
       throw err;
     }
 
-    // Do something with the result, if needed
     console.log('language inserted');
+    
   });
 });
 
 
+console.log(data);
 
-
-//getting technology
 const skills = req.body.technology;
-// console.log('tec '+technologies);
-// technologies.forEach((tec)=>{
-//   const lavel = req.body.experties+tec;
-//   db.query("insert into skills(applicant_id,technology,lavel) values(?,?,?)",[applicantId,tec,lavel],(err,result)=>{
-//     if(err) throw err;
-//     console.log('skills inserted')
-//   })
+console.log('tec :'+skills);
+// console.log(req.body[req.body.technology[0]+'a']);
+skills.forEach((tec)=>{
+  const lavel = req.body[tec+'a'];
+  db.query("insert into skills(applicant_id,technology,lavel) values(?,?,?)",[applicantId,tec,lavel],(err,result)=>{
+    if(err) throw err;
+    console.log('skills inserted')
+  })
 
-// });
-
-
-// Loop through each selected skill and insert into ApplicantSkills table
-skills.forEach((skill) => {
-  const skillLevel = req.body.experties;
-
-  db.query("INSERT INTO skills(applicant_id, technology, lavel) VALUES (?, ?, ?)", [applicantId, skill, skillLevel], (err, result) => {
-    if (err) {
-      throw err;
-    }
-
-    // Do something with the result, if needed
-    console.log('succsess')
-  });
 });
+
 
     
     res.send('done')

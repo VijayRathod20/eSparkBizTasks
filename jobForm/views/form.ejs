@@ -168,7 +168,7 @@
             <label for="<%=lan.option_name%>">
               <%=lan.option_name%>:
             </label>
-            <input type="checkbox" value="<%=lan.option_name%>" name="Language" />
+            <input type="checkbox" value="<%=lan.option_name%>" name="Languages" />
             <label for="read">Read:</label>
             <input type="checkbox" name="read" value="yes" />
             <label for="write">Write:</label>
@@ -189,12 +189,12 @@
               <%=t.option_name%>
             </label>
             <input type="checkbox" value="<%=t.option_name%>" name="technology" />
-            <!-- <label for="beginner">Beginner</label>
-          <input type="radio" name="experties" value="beginner" />
+            <label for="beginner">Beginner</label>
+          <input type="radio" name="<%=t.option_name%>a" value="beginner" />
           <label for="beginner">Intermediate</label>
-          <input type="radio" name="experties" value="Intermediate" />
+          <input type="radio" name="<%=t.option_name%>a" value="Intermediate" />
           <label for="beginner">Expert</label>
-          <input type="radio" name="experties" value="Expert" /> -->
+          <input type="radio" name="<%=t.option_name%>a" value="Expert" />
           </div>
           <%});%>
       </fieldset>

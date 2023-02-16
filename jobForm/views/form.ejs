@@ -150,7 +150,7 @@
             <label for="company-name">Comapany Name</label>
             <input type="text" id="company_name" name="company_name" />
             <label for="designation">Designation:</label>
-            <input type="text" id="designation" name="jobtitle" />
+            <input type="text" name="jobtitle" />
             <label for="start-date">Form:</label>
             <input type="date" id="start-date" name="start_date" />
             <label for="end-date">To:</label>
@@ -170,11 +170,11 @@
             </label>
             <input type="checkbox" value="<%=lan.option_name%>" name="Language" />
             <label for="read">Read:</label>
-            <input type="checkbox" name="read" value="yes" />
+            <input type="checkbox" name="<%=lan.option_name%>read" value="yes" />
             <label for="write">Write:</label>
-            <input type="checkbox" name="write" value="yes" />
+            <input type="checkbox" name="<%=lan.option_name%>write" value="yes" />
             <label for="speak">Speak:</label>
-            <input type="checkbox" name="speak" value="yes" />
+            <input type="checkbox" name="<%=lan.option_name%>speak" value="yes" />
 
           </div>
           <%});%>
@@ -189,12 +189,12 @@
               <%=t.option_name%>
             </label>
             <input type="checkbox" value="<%=t.option_name%>" name="technology" />
-            <!-- <label for="beginner">Beginner</label>
-          <input type="radio" name="experties" value="beginner" />
+          <label for="beginner">Beginner</label>
+          <input type="radio" name="<%=t.option_name%>a" value="beginner" />
           <label for="beginner">Intermediate</label>
-          <input type="radio" name="experties" value="Intermediate" />
+          <input type="radio" name="<%=t.option_name%>a" value="Intermediate" />
           <label for="beginner">Expert</label>
-          <input type="radio" name="experties" value="Expert" /> -->
+          <input type="radio" name="<%=t.option_name%>a" value="Expert" />
           </div>
           <%});%>
       </fieldset>
@@ -226,7 +226,7 @@
         <div class="location" style="margin-right: 1000px; padding: auto">
           <ul style="border: 1px solid black">
             <li>Prefered Location</li>
-            <select name="location" id="location">
+            <select name="location">
               <%location.forEach(function(loc) {%>
                 <option value="<%=loc.option_name%>">
                   <%=loc.option_name%>
@@ -237,13 +237,13 @@
         </div>
         <div>
           <label for="notice">Notice Period</label>
-          <input type="text" name="notice" id="notice" />
+          <input type="text" name="notice" />
           <label for="expected">Expected CTC</label>
           <input type="text" name="expected_ctc" id="expected" />
         </div>
         <div>
           <label for="department">Department</label>
-          <select name="department" id="department">
+          <select name="department">
             <% dep.forEach(function(d) {%>
               <option value="<%=d.option_name%>">
                 <%=d.option_name%>

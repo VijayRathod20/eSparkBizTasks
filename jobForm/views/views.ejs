@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViewData</title>
+    <style>
+        tr,td{
+            border: 3px solid blue;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form action="/search" method="GET">
+        <label for="column">Search by:</label>
+        <select name="column" id="column">
+          <option value="first_name">First Name</option>
+          <option value="last_name" <% if (req.query.column === 'last_name') { %>selected<% } %>>Last Name</option>
+          <option value="email">Email</option>
+          <option value="phone">Phone</option>
+          <option value="city">City</option>
+          <option value="state">State</option>
+          <option value="zip">zip</option>
+        </select>
+        <label for="term">Search term:</label>
+        <input type="text" name="term" id="term" value="<%= req.query.term %>">
+        <button type="submit">Search</button>
+      </form>
+      
+    <table>
+    <tr>
+        <td>ID</td>
+        <td>First Name</td>
+        <td>Last Name</td>
+        <td>Gender</td>
+        <td>DOB</td>
+        <td>Desigation</td>
+        <td>Addres</td>
+        <td>Email</td>
+        <td>Phone</td>
+        <td>City</td>
+        <td>State</td>
+        <td>Zipcode</td>
+        <td>Relationship Status</td>
+    </tr>
+    <%for(let i=0; i<record.length; i++) {%>
+    <tr>
+        <td><%=record[i].id%></td>
+        <td><%=record[i].first_name%></td>
+        <td><%=record[i].last_name%></td>
+        <td><%=record[i].gender%></td>
+        <td><%=record[i].dob%></td>
+        <td><%=record[i].designation%></td>
+        <td><%=record[i].address1%></td>
+        <td><%=record[i].email%></td>
+        <td><%=record[i].phone%></td>
+        <td><%=record[i].city%></td>
+        <td><%=record[i].state%></td>
+        <td><%=record[i].zip%></td>
+        <td><%=record[i].ralation_status%></td>
+    </tr>
+    <%}%>
+</table>
+</body>
+</html>

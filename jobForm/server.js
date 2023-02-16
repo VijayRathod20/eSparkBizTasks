@@ -257,15 +257,31 @@ app.post('/submit', (req, res) => {
     })
 
 
-
-    //listing
-
-    res.send('done')
+    res.send('Data inserted')
 
 
 
   });
 });
 
+app.get('/views',(req,res)=>{
+  db.query("select * from basic_info",(err,result)=>{
+    if(err) throw err;
+    res.render('views',{record:result});
+  })
+})
+
+app.get('/search', function (req, res) {
+  const column = req.query.column;
+  const term = req.query.term;
+  const sql = `SELECT * FROM basic_info WHERE ${column} LIKE '%${term}%'`;
+
+  db.query(sql, function (err, results) {
+    if (err) throw err;
+
+    // Pass the results to your view engine to render the data on the page
+    res.render('views', { record: results });
+  });
+});
 
 app.listen(8000);

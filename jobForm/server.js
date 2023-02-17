@@ -3,6 +3,7 @@ const app = express();
 app.set('view engine', 'ejs');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
+app.listen(8000);
 
 // Set up the middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -60,7 +61,7 @@ app.get('/', (req, res) => {
                 }
 
                 // Render the job application form and pass the data for the select boxes to the template
-                res.render('form', { state: states, relation: rel, location: location, dep: department, course: courses, language: languages, tec: technologies });
+                res.render('job_form', { state: states, relation: rel, location: location, dep: department, course: courses, language: languages, tec: technologies });
               });
             });
 
@@ -287,8 +288,5 @@ app.get('/search', function (req, res) {
 
 
 
-  
 
 
-
-app.listen(8000);

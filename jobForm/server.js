@@ -174,9 +174,9 @@ app.post('/submit', (req, res) => {
   
     //languages insert
     var lang = req.body.Language;
-    var r = req.body[lang + "read"];
-    var w = req.body[lang + "write"];
-    var s = req.body[lang + "speak"];
+    var r = req.body[lang + "read"] ? 'yes' : 'no';
+    var w = req.body[lang + "write"] ? 'yes' : 'no';
+    var s = req.body[lang + "speak"] ? 'yes' : 'no';
       console.log(lang);
       console.log(r);
     if(typeof (lang) == "string"){
@@ -257,7 +257,7 @@ app.post('/submit', (req, res) => {
     })
 
 
-    res.send('Data inserted')
+    res.send('done')
 
 
 
@@ -269,6 +269,7 @@ app.get('/views',(req,res)=>{
     if(err) throw err;
     res.render('views',{record:result});
   })
+
 })
 
 app.get('/search', function (req, res) {
@@ -280,8 +281,14 @@ app.get('/search', function (req, res) {
     if (err) throw err;
 
     // Pass the results to your view engine to render the data on the page
-    res.render('views', { record: results });
+    res.render('views', { record: results,term:term });
   });
 });
+
+
+
+  
+
+
 
 app.listen(8000);

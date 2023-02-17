@@ -16,8 +16,8 @@
     <form action="/search" method="GET">
         <label for="column">Search by:</label>
         <select name="column" id="column">
-          <option value="first_name">First Name</option>
-          <option value="last_name" <% if (req.query.column === 'last_name') { %>selected<% } %>>Last Name</option>
+          <option value="first_name" >First Name</option>
+          <option value="last_name" >Last Name</option>
           <option value="email">Email</option>
           <option value="phone">Phone</option>
           <option value="city">City</option>
@@ -25,9 +25,11 @@
           <option value="zip">zip</option>
         </select>
         <label for="term">Search term:</label>
-        <input type="text" name="term" id="term" value="<%= req.query.term %>">
+        <input type="text" name="term" id="term">
         <button type="submit">Search</button>
-      </form>
+      </form> 
+     
+
       
     <table>
     <tr>
@@ -52,14 +54,14 @@
         <td><%=record[i].last_name%></td>
         <td><%=record[i].gender%></td>
         <td><%=record[i].dob%></td>
-        <td><%=record[i].designation%></td>
+        <td><%=record[i].job_designation%></td>
         <td><%=record[i].address1%></td>
         <td><%=record[i].email%></td>
         <td><%=record[i].phone%></td>
         <td><%=record[i].city%></td>
         <td><%=record[i].state%></td>
         <td><%=record[i].zip%></td>
-        <td><%=record[i].ralation_status%></td>
+        <td><%=record[i].relation_status%></td>
     </tr>
     <%}%>
 </table>

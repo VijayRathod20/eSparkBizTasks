@@ -1,69 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ViewData</title>
     <style>
-        tr,td{
+        tr,
+        td {
             border: 3px solid blue;
             padding: 10px;
         }
+        p{
+            cursor: pointer;
+        }
     </style>
 </head>
+
 <body>
     <form action="/search" method="GET">
         <label for="column">Search by:</label>
         <select name="column" id="column">
-          <option value="first_name" >First Name</option>
-          <option value="last_name" >Last Name</option>
-          <option value="email">Email</option>
-          <option value="phone">Phone</option>
-          <option value="city">City</option>
-          <option value="state">State</option>
-          <option value="zip">zip</option>
+            <option value="first_name">First Name</option>
+            <option value="last_name">Last Name</option>
+            <option value="email">Email</option>
+            <option value="phone">Phone</option>
+            <option value="city">City</option>
+            <option value="state">State</option>
+            <option value="zip">zip</option>
         </select>
         <label for="term">Search term:</label>
         <input type="text" name="term" id="term">
         <button type="submit">Search</button>
-      </form> 
-     
+    </form>
 
-      
-    <table>
-    <tr>
-        <td>ID</td>
-        <td>First Name</td>
-        <td>Last Name</td>
-        <td>Gender</td>
-        <td>DOB</td>
-        <td>Desigation</td>
-        <td>Addres</td>
-        <td>Email</td>
-        <td>Phone</td>
-        <td>City</td>
-        <td>State</td>
-        <td>Zipcode</td>
-        <td>Relationship Status</td>
-    </tr>
-    <%for(let i=0; i<record.length; i++) {%>
-    <tr>
-        <td><%=record[i].id%></td>
-        <td><%=record[i].first_name%></td>
-        <td><%=record[i].last_name%></td>
-        <td><%=record[i].gender%></td>
-        <td><%=record[i].dob%></td>
-        <td><%=record[i].job_designation%></td>
-        <td><%=record[i].address1%></td>
-        <td><%=record[i].email%></td>
-        <td><%=record[i].phone%></td>
-        <td><%=record[i].city%></td>
-        <td><%=record[i].state%></td>
-        <td><%=record[i].zip%></td>
-        <td><%=record[i].relation_status%></td>
-    </tr>
-    <%}%>
-</table>
+
+    <form action="/deleteSelected" method="POST">
+        <table>
+            <tr>
+                <td>Select</td>
+                <td>ID</td>
+                <td>First Name</td>
+                <td>Last Name</td>
+                <td>Gender</td>
+                <td>DOB</td>
+                <td>Desigation</td>
+                <td>Addres</td>
+                <td>Email</td>
+                <td>Phone</td>
+                <td>City</td>
+                <td>State</td>
+                <td>Zipcode</td>
+                <td>Relationship Status</td>
+            </tr>
+            <%for(let i=0; i<record.length; i++) {%>
+                <tr id="tr<%=record[i].id%>">
+                    <td><input type="checkbox" value="<%=record[i].id%>" name="selectedRows" class="selectedRows"
+                            id="check"></td>
+                    <td>
+                        <%=record[i].id%>
+                    </td>
+                    <td>
+                        <%=record[i].first_name%>
+                    </td>
+                    <td>
+                        <%=record[i].last_name%>
+                    </td>
+                    <td>
+                        <%=record[i].gender%>
+                    </td>
+                    <td>
+                        <%=record[i].dob%>
+                    </td>
+                    <td>
+                        <%=record[i].job_designation%>
+                    </td>
+                    <td>
+                        <%=record[i].address1%>
+                    </td>
+                    <td>
+                        <%=record[i].email%>
+                    </td>
+                    <td>
+                        <%=record[i].phone%>
+                    </td>
+                    <td>
+                        <%=record[i].city%>
+                    </td>
+                    <td>
+                        <%=record[i].state%>
+                    </td>
+                    <td>
+                        <%=record[i].zip%>
+                    </td>
+                    <td>
+                        <%=record[i].relation_status%>
+                    </td>
+                    <td>
+                        <p>delete</p>
+                    </td>
+                </tr>
+                <%}%>
+        </table>
+        <div>
+            <p id="deleteBtn">Delete Selected</p>
+        </div>
+    </form>
+
 </body>
+<script>
+    const deleteButton = document.getElementById("deleteBtn");
+    deleteButton.addEventListener('click', () => {
+        var checkedData = [];
+        var checkedIds = document.getElementsByClassName("selectedRows");
+        for (let i = 0; i < checkedIds.length; i++) {
+            if (checkedIds[i].checked) {
+                checkedData.push(checkedIds[i].value);
+            }
+
+        }
+        const shouldDelete = confirm(`Are you sure you want to delete rows with the following IDs: ${checkedData.join(', ')}?`);
+        if (!shouldDelete) { return; }
+        checkedData.forEach(id => {
+            document.getElementById(`tr${id}`).style.display = "none";
+
+        });
+      
+        const ans = fetch(`http://localhost:8080/deleteData?id=${checkedData}`);
+        
+       
+    });
+</script>
+
 </html>

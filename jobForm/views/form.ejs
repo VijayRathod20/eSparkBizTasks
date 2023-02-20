@@ -89,17 +89,23 @@
           <input type="text" id="phone" name="phone" />
 
           <label for="city">City:</label>
-          <input type="text" id="phone" name="city" />
+          <select name="city" id="city">
+            <option value="" desabled selected values hidden>select city</option>
+          </select>
         </div>
 
         <div>
           <label for="state">State:</label>
           <select id="state" name="state">
-            <% state.forEach(function(s){%>
-              <option value="<%=s.option_name %>">
+            <option hidden disabled selected value>Select</option>
+            <!-- <% state.forEach(function(s){%>
+              <option value="<%=s.id %>">
                 <%= s.option_name %>
               </option>
-              <% }); %>
+              <% }); %> -->
+              <% for(let i=0; i<state.length; i++) {%>
+                <option value="<%= state[i].id %>" ><%= state[i].state %></option>
+                <%}%>
           </select>
 
           <label for="zipcode">Zipcode:</label>
@@ -301,6 +307,23 @@
     `;
     experience.appendChild(experienceItem);
   });
+
+  const stateSelect = document.getElementById('state');
+  const citySelect = document.getElementById('city');
+  stateSelect.addEventListener('change',()=>{
+    const stateId = stateSelect.value;
+    fetch(`/cities?stateid=${stateId}`).then
+    (response => response.json())
+    .then(cities => {
+      city.innerHTML = '';
+      cities.forEach(city=>{
+        const option = document.createElement('option');
+        option.value = city.city;
+        option.text = city.city;
+        citySelect.add(option);
+      })
+    })
+  })
 </script>
 
 </html>

@@ -3,7 +3,7 @@ const app = express();
 app.set('view engine', 'ejs');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
-app.listen(8000);
+app.listen(8080);
 
 // Set up the middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -61,7 +61,7 @@ app.get('/', (req, res) => {
                 }
 
                 // Render the job application form and pass the data for the select boxes to the template
-                res.render('job_form', { state: states, relation: rel, location: location, dep: department, course: courses, language: languages, tec: technologies });
+                res.render('form', { state: states, relation: rel, location: location, dep: department, course: courses, language: languages, tec: technologies });
               });
             });
 
@@ -72,7 +72,13 @@ app.get('/', (req, res) => {
   });
 });
 
-
+app.get('/cities',(req,res)=>{
+  const stateid = req.query.stateid;
+  db.query("select city from city_master where state_id = ?",[stateid],(err,cities)=>{
+    if(err) throw err;
+    res.json(cities);
+  })
+})
 // Set up the route to handle form submissions
 app.post('/submit', (req, res) => {
   // Retrieve the form data and insert it into the database

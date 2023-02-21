@@ -14,7 +14,23 @@
         }
         p{
             cursor: pointer;
+            border: 1px solid blue;
+            text-align: center;
+
         }
+        div {
+            margin-top: 30px;
+        }
+        span {
+            padding: 10px;
+            color: red;
+            font-weight: bolder;
+            border: 2px solid blue;
+            width: 100px;
+            text-align: center;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 
@@ -98,18 +114,39 @@
                         <%=record[i].relation_status%>
                     </td>
                     <td>
-                        <p>delete</p>
+                        <p onclick="deleteOne(`<%=record[i].id%>`)">delete</p>
                     </td>
                 </tr>
                 <%}%>
         </table>
         <div>
-            <p id="deleteBtn">Delete Selected</p>
+            <span id="deleteBtn">Delete Selected</span>
+            <span style="color: green;" id="retriveData" onclick="retriveData()">RetriveData</span>
         </div>
     </form>
 
 </body>
 <script>
+    async function deleteOne(id){
+        const shouldDelete = confirm(`Are you sure you want to delete rows with the following IDs: ${id}?`);
+        if (!shouldDelete) { return; }
+        document.getElementById(`tr${id}`).style.display = "none";
+        const response = fetch(`http://localhost:8080/deleteOne?id=${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id
+            })
+        }).then(res => res.json())
+        .then(data => {
+            if(data){
+                alert("Deleted successfully!");
+            }
+        })
+    }
+
     const deleteButton = document.getElementById("deleteBtn");
     deleteButton.addEventListener('click', () => {
         var checkedData = [];
@@ -128,9 +165,17 @@
         });
       
         const ans = fetch(`http://localhost:8080/deleteData?id=${checkedData}`);
-        
-       
     });
+
+    async function retriveData(){
+        fetch('http://localhost:8080/retrive').then
+        (response =>{
+            console.log(response);
+        }).then
+        (data =>{
+            alert("retrived succeess fully");
+        })
+    }
 </script>
 
 </html>

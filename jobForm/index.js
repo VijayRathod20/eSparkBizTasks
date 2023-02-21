@@ -352,3 +352,18 @@ app.get('/deleteData',(req,res)=>{
     });
 })
   
+app.post('/deleteOne',(req,res)=>{
+    var id = req.query.id;
+    db.query(`update basic_info set is_deleted = 1 where id = ${id}`,(err,result)=>{
+        if(err) throw err;
+
+    });
+    res.json({ans: "deleted successfully!"})
+});
+
+app.get('/retrive',(req,res)=>{
+  db.query("update basic_info set is_deleted = 0",(err,result)=>{
+    if(err) throw err;
+    res.send('retrive succesfull');
+  })
+})

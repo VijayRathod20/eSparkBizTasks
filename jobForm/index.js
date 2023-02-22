@@ -4,6 +4,7 @@ app.set("view engine", "ejs");
 const mysql = require("mysql2");
 const bodyParser = require("body-parser");
 app.listen(8080);
+app.use(bodyParser.json()); 
 
 // Set up the middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,7 +31,7 @@ app.get("/", (req, res) => {
     if (err) {
       throw err;
     }
-  
+
     db.query(
       "SELECT option_name FROM option_master where select_id = 2",
       (err, rel) => {
@@ -112,7 +113,7 @@ app.get('/cities', (req, res) => {
 
 
 app.post("/submit", (req, res) => {
- 
+
   const data = req.body;
   const course = req.body.course;
   const board = req.body.board;
@@ -124,197 +125,234 @@ app.post("/submit", (req, res) => {
   console.log(pr);
   // let state = data.start;
   // console.log("state"+state)
-   const state = req.body.state;
-   const city = req.body.city;
-   let stateName = '';
-   console.log(city);
-   db.query(`select * from state_master where id = ${state}`,(err,result)=>{
+  const state = req.body.state;
+  const city = req.body.city;
+  let stateName = '';
+  console.log(city);
+  db.query(`select * from state_master where id = ${state}`, (err, result) => {
     console.log(result[0].state);
     stateName = result[0].state;
 
-     const basicSql = `INSERT INTO basic_info (first_name,last_name,gender,dob,job_designation,address1,email,phone,city,state,zip,relation_status)
+    const basicSql = `INSERT INTO basic_info (first_name,last_name,gender,dob,job_designation,address1,email,phone,city,state,zip,relation_status)
    VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`;
-  const basicValue = [
-    data.first_name,
-    data.last_name,
-    data.gender,
-    data.dob,
-    data.job_designation,
-    data.address1,
-    data.email,
-    data.phone,
-    data.city,
-    stateName,
-    data.zip,
-    data.relation_status,
-  ];
-  db.query(basicSql, basicValue, (err, result) => {
-    if (err) {
-      throw err;
-    }
+    const basicValue = [
+      data.first_name,
+      data.last_name,
+      data.gender,
+      data.dob,
+      data.job_designation,
+      data.address1,
+      data.email,
+      data.phone,
+      data.city,
+      stateName,
+      data.zip,
+      data.relation_status,
+    ];
+    db.query(basicSql, basicValue, (err, result) => {
+      if (err) {
+        throw err;
+      }
 
-    //
-     const applicantId = result.insertId;
+      //
+      const applicantId = result.insertId;
 
-    if (typeof (course, board, passingyear, pr) == "string") {
-      eduSql = `insert into acadamics(applicant_id,course,board,passingYear,percentage) values
-      ('${applicantId}','${course}','${board}','${passingyear}','${pr}')`;
-
-      db.query(eduSql, (err, result) => {
-        if (err) throw err;
-        console.log("edu inserted");
-      });
-    } else {
-      for (i = 0; i < course.length; i++) {
+      if (typeof (course, board, passingyear, pr) == "string") {
         eduSql = `insert into acadamics(applicant_id,course,board,passingYear,percentage) values
-      ('${applicantId}','${course[i]}','${board[i]}','${passingyear[i]}','${pr[i]}')`;
+      ('${applicantId}','${course}','${board}','${passingyear}','${pr}')`;
 
         db.query(eduSql, (err, result) => {
           if (err) throw err;
           console.log("edu inserted");
         });
+      } else {
+        for (i = 0; i < course.length; i++) {
+          eduSql = `insert into acadamics(applicant_id,course,board,passingYear,percentage) values
+      ('${applicantId}','${course[i]}','${board[i]}','${passingyear[i]}','${pr[i]}')`;
+
+          db.query(eduSql, (err, result) => {
+            if (err) throw err;
+            console.log("edu inserted");
+          });
+        }
       }
-    }
 
-    const c_name = req.body.company_name;
-    const desig = req.body.jobtitle;
-    const start = req.body.start_date;
-    const end = req.body.end_date;
-    console.log(c_name);
-    console.log(desig);
-    console.log(start);
-    console.log(end);
-    if (typeof (c_name, desig, start, end) == "string") {
-      expSql = `insert into work_experience(applicant_id,company_name,jobtitle,start_date,end_date) values
-      ('${applicantId}','${c_name}','${desig}','${start}','${end}')`;
-
-      db.query(expSql, (err, result) => {
-        if (err) throw err;
-        console.log("exp inserted");
-      });
-    } else {
-      for (i = 0; i < c_name.length; i++) {
+      const c_name = req.body.company_name;
+      const desig = req.body.jobtitle;
+      const start = req.body.start_date;
+      const end = req.body.end_date;
+      console.log(c_name);
+      console.log(desig);
+      console.log(start);
+      console.log(end);
+      if (typeof (c_name, desig, start, end) == "string") {
         expSql = `insert into work_experience(applicant_id,company_name,jobtitle,start_date,end_date) values
-      ('${applicantId}','${c_name[i]}','${desig[i]}','${start[i]}','${end[i]}')`;
+      ('${applicantId}','${c_name}','${desig}','${start}','${end}')`;
 
         db.query(expSql, (err, result) => {
           if (err) throw err;
           console.log("exp inserted");
         });
-      }
-    }
+      } else {
+        for (i = 0; i < c_name.length; i++) {
+          expSql = `insert into work_experience(applicant_id,company_name,jobtitle,start_date,end_date) values
+      ('${applicantId}','${c_name[i]}','${desig[i]}','${start[i]}','${end[i]}')`;
 
-
-    //languages insert
-    var lang = req.body.Language;
-    var r = req.body[lang + "read"] ? "yes" : "no";
-    var w = req.body[lang + "write"] ? "yes" : "no";
-    var s = req.body[lang + "speak"] ? "yes" : "no";
-    console.log(lang);
-    console.log(r);
-    if (typeof lang == "string") {
-      var query_lan =
-        "INSERT INTO LanguagesKnown(applicant_id,Language,`read`,`write`,`speak`) VALUES (?, ?, ?, ?, ?)";
-      db.query(query_lan, [applicantId, lang, r, w, s], (err, ans) => {
-        if (err) return console.log(err.message);
-        console.log("languages inserted");
-      });
-    } else {
-      lang.forEach((language) => {
-        const read2 = req.body[language + "read"] ? "yes" : "no";
-        const write2 = req.body[language + "write"] ? "yes" : "no";
-        const speak2 = req.body[language + "speak"] ? "yes" : "no";
-
-        db.query(
-          "INSERT INTO LanguagesKnown(applicant_id,Language,`read`,`write`,`speak`) VALUES (?, ?, ?, ?, ?)",
-          [applicantId, language, read2, write2, speak2],
-          (err, result) => {
-            if (err) {
-              throw err;
-            }
-
-            console.log("language inserted");
-          }
-        );
-      });
-    }
-
-    //getting technology
-    const skills = req.body.technology;
-    const lavel = req.body[skills + "a"];
-    console.log("skills " + skills);
-    if (typeof skills == "string") {
-      db.query(
-        "insert into skills(applicant_id,technology,lavel) values(?,?,?)",
-        [applicantId, skills, lavel],
-        (err, result) => {
-          if (err) throw err;
-          console.log("skills one inserted");
+          db.query(expSql, (err, result) => {
+            if (err) throw err;
+            console.log("exp inserted");
+          });
         }
-      );
-    } else {
-      skills.forEach((tec) => {
-        const lavel = req.body[tec + "a"];
-        console.log("lavel " + lavel);
+      }
+
+
+      //languages insert
+      var lang = req.body.Language;
+      var r = req.body[lang + "read"] ? "yes" : "no";
+      var w = req.body[lang + "write"] ? "yes" : "no";
+      var s = req.body[lang + "speak"] ? "yes" : "no";
+      console.log(lang);
+      console.log(r);
+      if (typeof lang == "string") {
+        var query_lan =
+          "INSERT INTO LanguagesKnown(applicant_id,Language,`read`,`write`,`speak`) VALUES (?, ?, ?, ?, ?)";
+        db.query(query_lan, [applicantId, lang, r, w, s], (err, ans) => {
+          if (err) return console.log(err.message);
+          console.log("languages inserted");
+        });
+      } else {
+        lang.forEach((language) => {
+          const read2 = req.body[language + "read"] ? "yes" : "no";
+          const write2 = req.body[language + "write"] ? "yes" : "no";
+          const speak2 = req.body[language + "speak"] ? "yes" : "no";
+
+          db.query(
+            "INSERT INTO LanguagesKnown(applicant_id,Language,`read`,`write`,`speak`) VALUES (?, ?, ?, ?, ?)",
+            [applicantId, language, read2, write2, speak2],
+            (err, result) => {
+              if (err) {
+                throw err;
+              }
+
+              console.log("language inserted");
+            }
+          );
+        });
+      }
+
+      //getting technology
+      const skills = req.body.technology;
+      const lavel = req.body[skills + "a"];
+      console.log("skills " + skills);
+      if (typeof skills == "string") {
         db.query(
           "insert into skills(applicant_id,technology,lavel) values(?,?,?)",
-          [applicantId, tec, lavel],
+          [applicantId, skills, lavel],
           (err, result) => {
             if (err) throw err;
-            console.log("skills inserted");
+            console.log("skills one inserted");
           }
         );
-      });
-    }
+      } else {
+        skills.forEach((tec) => {
+          const lavel = req.body[tec + "a"];
+          console.log("lavel " + lavel);
+          db.query(
+            "insert into skills(applicant_id,technology,lavel) values(?,?,?)",
+            [applicantId, tec, lavel],
+            (err, result) => {
+              if (err) throw err;
+              console.log("skills inserted");
+            }
+          );
+        });
+      }
 
-    //getting references
-    const rname = data.rname;
-    const rcontact = data.rcontact;
-    const relation = data.relation;
-    console.log(rname);
-    console.log(rcontact);
-    console.log(relation);
-    for (let i = 0; i < rname.length; i++) {
-      db.query(
-        `insert into reference(applicant_id,rname,rcontact,relation) 
+      //getting references
+      const rname = data.rname;
+      const rcontact = data.rcontact;
+      const relation = data.relation;
+      console.log(rname);
+      console.log(rcontact);
+      console.log(relation);
+      for (let i = 0; i < rname.length; i++) {
+        db.query(
+          `insert into reference(applicant_id,rname,rcontact,relation) 
       values('${applicantId}','${rname[i]}','${rcontact[i]}','${relation[i]}')`,
+          (err, result) => {
+            if (err) throw err;
+            console.log("ferences inserted");
+          }
+        );
+      }
+
+      //preferences
+      const plocation = data.location;
+      const noticeperiod = data.notice;
+      const ectc = data.expected_ctc;
+      const pdepartment = data.department;
+      db.query(
+        `insert into preference(applicant_id,location,notice,expected_ctc,department) values
+      ('${applicantId}','${plocation}','${noticeperiod}','${ectc}','${pdepartment}')`,
         (err, result) => {
           if (err) throw err;
-          console.log("ferences inserted");
+          console.log("preferences inserted sucusessfully!");
         }
       );
-    }
 
-    //preferences
-    const plocation = data.location;
-    const noticeperiod = data.notice;
-    const ectc = data.expected_ctc;
-    const pdepartment = data.department;
-    db.query(
-      `insert into preference(applicant_id,location,notice,expected_ctc,department) values
-      ('${applicantId}','${plocation}','${noticeperiod}','${ectc}','${pdepartment}')`,
-      (err, result) => {
-        if (err) throw err;
-        console.log("preferences inserted sucusessfully!");
+      res.send("done");
+    });
+  });
+
+});
+
+
+var limit = 10;
+app.get('/views',(req,res)=>{
+  var ajax = req.query.ajax || false;
+  let k = (req.query.id - 1)*limit || 0;
+  var sql12 = `select * from basic_info where is_deleted=0`;
+  db.query(sql12,(err,result2)=>{
+
+    data12 = result2;
+    var sql13 = `select * from basic_info where is_deleted!=1 limit ${k},${limit}`;
+    db.query(sql13,(err,result)=>{
+      if(err) throw err;
+
+      if(!ajax){
+        res.render("views",{record:result,count_record:data12.length,limit});
       }
-    );
-
-    res.send("done");
+      else{
+        res.json(result);
+      }
+    });
   });
 });
 
-   });
 
- 
-   
 
-app.get("/views", (req, res) => {
-  db.query("SELECT * FROM basic_info WHERE is_deleted = 0", (err, result) => {
-    if (err) throw err;
-    res.render("views", { record: result });
-  });
-});
 
+// app.get("/views", (req, res) => {
+//   const PAGE_SIZE = 10;
+//   const page = parseInt(req.query.page) || 1;
+//   let offset = (page - 1) * PAGE_SIZE;
+//   db.query(`SELECT * FROM basic_info WHERE is_deleted = 0 limit ${offset},${PAGE_SIZE} `, (err, result) => {
+//     if (err) throw err;
+//     db.query(`SELECT COUNT(*) as count FROM basic_info WHERE is_deleted = 0`,(err,count)=>{
+//       if(err) throw err;
+//       const totcount = count[0].count;
+//       const pageCount = Math.ceil(totcount / PAGE_SIZE);
+    
+//     res.render("views", {
+//       record: result,
+//       count:totcount,
+//       totpages:pageCount,
+//       page:page
+
+//     });
+//   });
+// });
+// });
 app.get("/search", function (req, res) {
   const column = req.query.column;
   const term = req.query.term;
@@ -335,7 +373,7 @@ app.get("/search", function (req, res) {
 //       res.redirect('/views');
 //       return;
 //     }
-  
+
 //     var placeholders = selectedRows.map(function() { return '?' }).join(',');
 //     var sql = 'UPDATE basic_info SET is_deleted = 1 WHERE id IN (' + placeholders + ')';
 //     db.query(sql, selectedRows, function(error, results) {
@@ -344,26 +382,26 @@ app.get("/search", function (req, res) {
 //     });
 
 //   });
-app.get('/deleteData',(req,res)=>{
-    var cd_id = req.query.id;
-    db.query(`update basic_info set is_deleted = 1 where id in (${cd_id})`,(err,result)=>{
-        if(err) throw err;
+app.get('/deleteData', (req, res) => {
+  var cd_id = req.query.id;
+  db.query(`update basic_info set is_deleted = 1 where id in (${cd_id})`, (err, result) => {
+    if (err) throw err;
 
-    });
+  });
 })
-  
-app.post('/deleteOne',(req,res)=>{
-    var id = req.query.id;
-    db.query(`update basic_info set is_deleted = 1 where id = ${id}`,(err,result)=>{
-        if(err) throw err;
 
-    });
-    res.json({ans: "deleted successfully!"})
+app.post('/deleteOne', (req, res) => {
+  var id = req.query.id;
+  db.query(`update basic_info set is_deleted = 1 where id = ${id}`, (err, result) => {
+    if (err) throw err;
+
+  });
+  res.json({ ans: "deleted successfully!" })
 });
 
-app.get('/retrive',(req,res)=>{
-  db.query("update basic_info set is_deleted = 0",(err,result)=>{
-    if(err) throw err;
+app.get('/retrive', (req, res) => {
+  db.query("update basic_info set is_deleted = 0", (err, result) => {
+    if (err) throw err;
     res.send('retrive succesfull');
   })
 })

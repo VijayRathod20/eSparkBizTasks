@@ -361,9 +361,14 @@ app.get("/search", function (req, res) {
   db.query(sql, function (err, results) {
     if (err) throw err;
 
-    // Pass the results to your view engine to render the data on the page
-    res.render("views", { record: results, term: term });
+    db.query(`SELECT COUNT(*) as count FROM basic_info WHERE is_deleted = 0`,(err,count)=>{
+            if(err) throw err;
+            const totcount = count[0].count;
+           
+
+    res.render("views", { record: results,count_record:totcount, term: term,limit });
   });
+});
 });
 
 //delete function

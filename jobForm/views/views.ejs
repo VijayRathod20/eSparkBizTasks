@@ -120,6 +120,7 @@
                         <td>
                             <p onclick="deleteOne(`<%=record[i].id%>`)">delete</p>
                         </td>
+                        <td><a href="edit?id=<%=record[i].id%>">edit</a></td>
                     </tr>
                     <%}%>
             </div>
@@ -186,7 +187,10 @@
         <td>${record[i].state}</td>
         <td>${record[i].zip}</td>
         <td>${record[i].relation_status}</td>
-        <td><p id="delete" onclick="deleteOne('${record[i].id}')">Delete</p></td>
+        <td><p id="delete" onclick="deleteOne('${record[i].id}')">Delete</p>
+            
+            </td>
+        
     </tr>
     `;
             }
@@ -248,6 +252,7 @@
                 alert("retrived succeess fully");
             })
     }
+
 
 </script>
 

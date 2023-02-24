@@ -491,7 +491,7 @@ app.get("/edit", async (req, res) => {
                                   
                                       db.query(`select * from state_master where id = ${stateId}`, (err, stateid) => {
                                         if (err) throw err;
-                                        console.log(stateid);
+                                        console.log("st"+stateid);
                                   
                                   
                                         db.query(`select * from acadamics where applicant_id = ${id}`, (err, edu) => {
@@ -501,6 +501,25 @@ app.get("/edit", async (req, res) => {
                                           db.query(`select * from work_experience where applicant_id = ${id}`, (err, work) => {
                                             if (err) throw err;
                                             console.log(work);
+
+                                            db.query(`select * from LanguagesKnown where applicant_id = ${id}`,(err,lang)=>{
+                                              if(err) throw err;
+                                              var lanjson = JSON.stringify(lang);
+                                              console.log(lang)
+                                              console.log("lang"+lanjson);
+
+                                              db.query(`select * from skills where applicant_id = ${id}`,(err,skill)=>{
+                                                if(err) throw err;
+                                                console.log(lang);
+
+                                                db.query(`select * from reference where applicant_id = ${id}`,(err,ref)=>{
+                                                  if(err) throw err;
+
+                                                  db.query(`select * from preference where applicant_id = ${id}`,(err,pref)=>{
+                                                    if(err) throw err;
+                                                    console.log(pref);
+                                                
+                                               
                                   
 
                                     // Render the job application form and pass the data for the select boxes to the template
@@ -515,8 +534,17 @@ app.get("/edit", async (req, res) => {
                                       basic_info,
                                       edu,
                                       stateid,
-                                      work
+                                      work,
+                                      lanjson,
+                                      lang,
+                                      skill,
+                                      ref,
+                                      pref
+                                    })
                                     });
+                                  })
+                                            
+                                  })
                                   }
                                 );
                               }
@@ -536,7 +564,7 @@ app.get("/edit", async (req, res) => {
   })
 })
 
-
+})
 
 //edit save data
 app.post("/update", (req, res) => {
@@ -565,152 +593,151 @@ app.post("/update", (req, res) => {
     if (err) {
       throw err;
     }
+  });
 
-    //
 
     if (typeof (course, board, passingyear, pr) == "string") {
-      eduSql = `update acadamics`;
+      eduSql = `update acadamics set course='${course}',board='${board}',passingYear='${passingyear}',percentage='${pr}' where applicant_id=${id}`;
 
       db.query(eduSql, (err, result) => {
         if (err) throw err;
-        console.log("edu inserted");
+        console.log("edu updated");
       });
     } else {
       for (i = 0; i < course.length; i++) {
-        eduSql = `insert into acadamics(applicant_id,course,board,passingYear,percentage) values
-      ('${applicantId}','${course[i]}','${board[i]}','${passingyear[i]}','${pr[i]}')`;
+        eduSql = `update acadamics set course='${course[i]}',board='${board[i]}',passingYear='${passingyear[i]}',percentage='${pr[i]}' where applicant_id=${id}`;
 
         db.query(eduSql, (err, result) => {
           if (err) throw err;
-          console.log("edu inserted");
+          console.log("edu updated");
         });
       }
     }
 
-    // const c_name = req.body.company_name;
-    // const desig = req.body.jobtitle;
-    // const start = req.body.start_date;
-    // const end = req.body.end_date;
-    // console.log(c_name);
-    // console.log(desig);
-    // console.log(start);
-    // console.log(end);
-    // if (typeof (c_name, desig, start, end) == "string") {
-    //   expSql = `insert into work_experience(applicant_id,company_name,jobtitle,start_date,end_date) values
-    // ('${applicantId}','${c_name}','${desig}','${start}','${end}')`;
+    const c_name = req.body.company_name;
+    const desig = req.body.jobtitle;
+    const start = req.body.start_date;
+    const end = req.body.end_date;
+    console.log(c_name);
+    console.log(desig);
+    console.log(start);
+    console.log(end);
+    if (typeof (c_name, desig, start, end) == "string") {
+      expSql = `update work_experience set company_name='${c_name}',jobtitle='${desig}',start_date='${start}',end_date='${end}' where applicant_id=${id}`;
+      db.query(expSql, (err, result) => {
+        if (err) throw err;
+        console.log("exp updated");
+      });
+    } else {
+      for (i = 0; i < c_name.length; i++) {
+        expSql = `update work_experience set company_name='${c_name[i]}',jobtitle='${desig[i]}',start_date='${start[i]}',end_date='${end[i]}' where applicant_id=${id}`;
 
-    //   db.query(expSql, (err, result) => {
-    //     if (err) throw err;
-    //     console.log("exp inserted");
-    //   });
-    // } else {
-    //   for (i = 0; i < c_name.length; i++) {
-    //     expSql = `insert into work_experience(applicant_id,company_name,jobtitle,start_date,end_date) values
-    // ('${applicantId}','${c_name[i]}','${desig[i]}','${start[i]}','${end[i]}')`;
+        db.query(expSql, (err, result) => {
+          if (err) throw err;
+          console.log("exp updated");
+        });
+      }
+    }
+    ////languages
+    db.query(`delete from LanguagesKnown where applicant_id=${id}`,(err,result)=>{
+      if(err) throw err;
+    });
+    var applicantId = id;
+    var lang = req.body.Language;
+    var r = req.body[lang + "read"] ? "yes" : "no";
+    var w = req.body[lang + "write"] ? "yes" : "no";
+    var s = req.body[lang + "speak"] ? "yes" : "no";
+    console.log(lang);
+    console.log(r);
+    if (typeof lang == "string") {
+      var query_lan =
+        "INSERT INTO LanguagesKnown(applicant_id,Language,`read`,`write`,`speak`) VALUES (?, ?, ?, ?, ?)";
+      db.query(query_lan, [applicantId, lang, r, w, s], (err, ans) => {
+        if (err) return console.log(err.message);
+        console.log("languages inserted");
+      });
+    } else {
+      lang.forEach((language) => {
+        const read2 = req.body[language + "read"] ? "yes" : "no";
+        const write2 = req.body[language + "write"] ? "yes" : "no";
+        const speak2 = req.body[language + "speak"] ? "yes" : "no";
 
-    //     db.query(expSql, (err, result) => {
-    //       if (err) throw err;
-    //       console.log("exp inserted");
-    //     });
-    //   }
-    // }
+        db.query(
+          "INSERT INTO LanguagesKnown(applicant_id,Language,`read`,`write`,`speak`) VALUES (?, ?, ?, ?, ?)",
+          [applicantId, language, read2, write2, speak2],
+          (err, result) => {
+            if (err) {
+              throw err;
+            }
 
+            console.log("language inserted");
+          }
+        );
+      });
+    }
 
-    // //languages insert
-    // var lang = req.body.Language;
-    // var r = req.body[lang + "read"] ? "yes" : "no";
-    // var w = req.body[lang + "write"] ? "yes" : "no";
-    // var s = req.body[lang + "speak"] ? "yes" : "no";
-    // console.log(lang);
-    // console.log(r);
-    // if (typeof lang == "string") {
-    //   var query_lan =
-    //     "INSERT INTO LanguagesKnown(applicant_id,Language,`read`,`write`,`speak`) VALUES (?, ?, ?, ?, ?)";
-    //   db.query(query_lan, [applicantId, lang, r, w, s], (err, ans) => {
-    //     if (err) return console.log(err.message);
-    //     console.log("languages inserted");
-    //   });
-    // } else {
-    //   lang.forEach((language) => {
-    //     const read2 = req.body[language + "read"] ? "yes" : "no";
-    //     const write2 = req.body[language + "write"] ? "yes" : "no";
-    //     const speak2 = req.body[language + "speak"] ? "yes" : "no";
+    //getting technology
+  db.query(`delete from skills where applicant_id = ${id}`,(err,result)=>{
+    if(err) throw err;
+  });
+    const skills = req.body.technology;
+    const lavel = req.body[skills + "a"];
+    console.log("skills " + skills);
+    if (typeof skills == "string") {
+      db.query(
+        "insert into skills(applicant_id,technology,lavel) values(?,?,?)",
+        [applicantId, skills, lavel],
+        (err, result) => {
+          if (err) throw err;
+          console.log("skills one inserted");
+        }
+      );
+    } else {
+      skills.forEach((tec) => {
+        const lavel = req.body[tec + "a"];
+        console.log("lavel " + lavel);
+        db.query(
+          "insert into skills(applicant_id,technology,lavel) values(?,?,?)",
+          [applicantId, tec, lavel],
+          (err, result) => {
+            if (err) throw err;
+            console.log("skills inserted");
+          }
+        );
+      });
+    }
 
-    //     db.query(
-    //       "INSERT INTO LanguagesKnown(applicant_id,Language,`read`,`write`,`speak`) VALUES (?, ?, ?, ?, ?)",
-    //       [applicantId, language, read2, write2, speak2],
-    //       (err, result) => {
-    //         if (err) {
-    //           throw err;
-    //         }
+    //getting references
+    const rname = data.rname;
+    const rcontact = data.rcontact;
+    const relation = data.relation;
+    console.log(rname);
+    console.log(rcontact);
+    console.log(relation);
+    for (let i = 0; i < rname.length; i++) {
+      db.query(
+        `update reference set rname = '${rname}',rcontact='${rcontact}',relation='${relation}' where applicant_id=${id}`,
+        (err, result) => {
+          if (err) throw err;
+          console.log("ferences updated");
+        }
+      );
+    }
 
-    //         console.log("language inserted");
-    //       }
-    //     );
-    //   });
-    // }
-
-    // //getting technology
-    // const skills = req.body.technology;
-    // const lavel = req.body[skills + "a"];
-    // console.log("skills " + skills);
-    // if (typeof skills == "string") {
-    //   db.query(
-    //     "insert into skills(applicant_id,technology,lavel) values(?,?,?)",
-    //     [applicantId, skills, lavel],
-    //     (err, result) => {
-    //       if (err) throw err;
-    //       console.log("skills one inserted");
-    //     }
-    //   );
-    // } else {
-    //   skills.forEach((tec) => {
-    //     const lavel = req.body[tec + "a"];
-    //     console.log("lavel " + lavel);
-    //     db.query(
-    //       "insert into skills(applicant_id,technology,lavel) values(?,?,?)",
-    //       [applicantId, tec, lavel],
-    //       (err, result) => {
-    //         if (err) throw err;
-    //         console.log("skills inserted");
-    //       }
-    //     );
-    //   });
-    // }
-
-    // //getting references
-    // const rname = data.rname;
-    // const rcontact = data.rcontact;
-    // const relation = data.relation;
-    // console.log(rname);
-    // console.log(rcontact);
-    // console.log(relation);
-    // for (let i = 0; i < rname.length; i++) {
-    //   db.query(
-    //     `insert into reference(applicant_id,rname,rcontact,relation) 
-    // values('${applicantId}','${rname[i]}','${rcontact[i]}','${relation[i]}')`,
-    //     (err, result) => {
-    //       if (err) throw err;
-    //       console.log("ferences inserted");
-    //     }
-    //   );
-    // }
-
-    // //preferences
-    // const plocation = data.location;
-    // const noticeperiod = data.notice;
-    // const ectc = data.expected_ctc;
-    // const pdepartment = data.department;
-    // db.query(
-    //   `insert into preference(applicant_id,location,notice,expected_ctc,department) values
-    // ('${applicantId}','${plocation}','${noticeperiod}','${ectc}','${pdepartment}')`,
-    //   (err, result) => {
-    //     if (err) throw err;
-    //     console.log("preferences inserted sucusessfully!");
-    //   }
-    // );
+    //preferences
+    const plocation = data.location;
+    const noticeperiod = data.notice;
+    const ectc = data.expected_ctc;
+    const pdepartment = data.department;
+    db.query(
+      `update preference set location='${plocation}',notice='${noticeperiod}',expected_ctc='${ectc}',department='${pdepartment}' where applicant_id=${id}`,
+      (err, result) => {
+        if (err) throw err;
+        console.log("preferences updated sucusessfully!");
+      }
+    );
 
     res.send("done");
   });
-});
+
 

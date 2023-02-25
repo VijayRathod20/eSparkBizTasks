@@ -663,6 +663,7 @@ app.post("/update", (req, res) => {
         });
       }
     }
+    
     ////languages
     db.query(`delete from LanguagesKnown where applicant_id=${id}`,(err,result)=>{
       if(err) throw err;

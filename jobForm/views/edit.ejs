@@ -146,7 +146,7 @@
                         <label for="state">State:</label>
                         <select name="state" id="states">
                             <option hidden disabled selected value>
-                               select state
+                                select state
                             </option>
                             <!-- <% for(var i=0 ; i<states.length; i++) {%>
                                 <%if(states[i].state==basic_info[0].state){%>
@@ -159,12 +159,12 @@
                                         </option>
                                         <%}%>
                                             <%}%> -->
-                                            <% for(let i=0; i < states.length; i++) {%>
-                                                <option value="<%= states[i].id %>" <% if(states[i].id==basic_info[0].state)
-                                                    { %> selected <% } %> >
-                                                        <%= states[i].state %>
-                                                </option>
-                                                <% } %>
+                            <% for(let i=0; i < states.length; i++) {%>
+                                <option value="<%= states[i].id %>" <% if(states[i].id==basic_info[0].state) { %>
+                                    selected <% } %> >
+                                        <%= states[i].state %>
+                                </option>
+                                <% } %>
                         </select>
                     </td>
                     <td>
@@ -294,7 +294,11 @@
                                             <%}%>/>
                             </td>
                             <td>
-                                Read:<input type="checkbox" name="<%=lan.option_name%>read" value="yes" />
+                                Read:<input type="checkbox" name="<%=lan.option_name%>read" value="yes" 
+                                <%for(i=0;i<lang.length;i++){%>
+                                    <% if (lang[i].read == "yes") { %>checked<% } %>
+                                            <%}%>
+                                />
                             </td>
                             <td>
                                 Write:<input type="checkbox" name="<%=lan.option_name%>write" value="yes" />
@@ -319,7 +323,8 @@
                                     <% if (skill[i].technology.includes(t.option_name)) { %>checked<% } %>
                                             <%}%> />
                             </td>
-                            <td>Beginner: <input type="radio" name="<%=t.option_name%>a" value="beginner" /></td>
+                            <td>Beginner: <input type="radio" name="<%=t.option_name%>a" value="beginner" 
+                                /></td>
                             <td>Intermediate: <input type="radio" name="<%=t.option_name%>a" value="Intermediate" />
                             </td>
                             <td>Expert:<input type="radio" name="<%=t.option_name%>a" value="Expert" /></td>

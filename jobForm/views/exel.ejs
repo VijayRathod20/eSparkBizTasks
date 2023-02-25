@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        tr,td{
+            border: 2px solid black;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Gender</td>
+            <td>Email</td>
+            <td>Phone</td>
+        </tr>
+        <%for(let i=0; i<users.length; i++){%>
+        <tr>
+            <td><%=users[i].id%></td>
+            <input type="hidden" name="_method" value="PUT">
+            <td>
+                <input type="text" name="first_name" value="<%=users[i].first_name%>" id="fname<%=users[i].id%>">
+            </td>
+            <td>
+                <input type="text" name="last_name" value="<%=users[i].last_name%>" id="lname<%=users[i].id%>">
+            </td>
+            <td>
+                <input type="text" name="gender" value="<%=users[i].gender%>" id="gen<%=users[i].id%>">
+            </td>
+            <td>
+                <input type="text" name="email" value="<%=users[i].email%>" id="email<%=users[i].id%>">
+            </td>
+            <td>
+                <input type="text" name="phone" value="<%=users[i].phone%>" id="phone<%=users[i].id%>">
+            </td>
+            <td><button type="submit" onclick="edit(`<%=users[i].id%>`)">Save</button></td> 
+        </tr>
+        <%}%>
+    </table>
+    <button>+</button>
+
+</body>
+    <script>
+        function edit(id){
+            const response = fetch(`http://localhost:8080/save?id=${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id
+            })
+        }).then(res => res.json())
+            .then(data => {
+                if (data) {
+                    alert("updated successfully!");
+                }
+            })
+        }
+    </script>
+</html>

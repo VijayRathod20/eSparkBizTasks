@@ -421,6 +421,7 @@ app.get('/retrive', (req, res) => {
 // });
 
 
+
 // db.query('SELECT * FROM city_master', (error, cities) => {
 //   if (error) throw error;
 //   console.log('Cities data:', cities);
@@ -563,7 +564,6 @@ app.get("/edit", async (req, res) => {
     })
   })
 })
-
 })
 
 //edit save data
@@ -595,24 +595,49 @@ app.post("/update", (req, res) => {
     }
   });
 
-
-    if (typeof (course, board, passingyear, pr) == "string") {
-      eduSql = `update acadamics set course='${course}',board='${board}',passingYear='${passingyear}',percentage='${pr}' where applicant_id=${id}`;
-
-      db.query(eduSql, (err, result) => {
-        if (err) throw err;
-        console.log("edu updated");
+      db.query(`delete from acadamics where applicant_id=${id}`,(err,result)=>{
+        if(err) throw err;
+        console.log("edu deleted");
       });
-    } else {
-      for (i = 0; i < course.length; i++) {
-        eduSql = `update acadamics set course='${course[i]}',board='${board[i]}',passingYear='${passingyear[i]}',percentage='${pr[i]}' where applicant_id=${id}`;
+      applicantId = id;
+
+      if (typeof (course, board, passingyear, pr) == "string") {
+        eduSql = `insert into acadamics(applicant_id,course,board,passingYear,percentage) values
+      ('${applicantId}','${course}','${board}','${passingyear}','${pr}')`;
 
         db.query(eduSql, (err, result) => {
           if (err) throw err;
-          console.log("edu updated");
+          console.log("edu inserted");
         });
+      } else {
+        for (i = 0; i < course.length; i++) {
+          eduSql = `insert into acadamics(applicant_id,course,board,passingYear,percentage) values
+      ('${applicantId}','${course[i]}','${board[i]}','${passingyear[i]}','${pr[i]}')`;
+
+          db.query(eduSql, (err, result) => {
+            if (err) throw err;
+            console.log("edu inserted");
+          });
+        }
       }
-    }
+      
+    // if (typeof (course, board, passingyear, pr) == "string") {
+    //   eduSql = `update acadamics set course='${course}',board='${board}',passingYear='${passingyear}',percentage='${pr}' where applicant_id=${id}`;
+
+    //   db.query(eduSql, (err, result) => {
+    //     if (err) throw err;
+    //     console.log("edu updated");
+    //   });
+    // } else {
+    //   for (i = 0; i < course.length; i++) {
+    //     eduSql = `update acadamics set course='${course[i]}',board='${board[i]}',passingYear='${passingyear[i]}',percentage='${pr[i]}' where applicant_id=${id}`;
+
+    //     db.query(eduSql, (err, result) => {
+    //       if (err) throw err;
+    //       console.log("edu updated");
+    //     });
+    //   }
+    // }
 
     const c_name = req.body.company_name;
     const desig = req.body.jobtitle;

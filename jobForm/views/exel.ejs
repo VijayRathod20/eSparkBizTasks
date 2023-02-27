@@ -7,15 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        tr,
-        td {
+        tr,td {
             border: 2px solid black;
             padding: 20px;
         }
         span{
             font-weight: bolder;
             border: 2px solid black;
-           font-size: 50px;
+            border-radius: 5px;
+            font-size: 50px;
+            background-color: aliceblue;
+            cursor: pointer;
         }
         table{
             background-color: #cfe0e8;
@@ -31,6 +33,7 @@
         input{
             padding: 10px;
         }
+        
     </style>
 </head>
 
@@ -72,7 +75,7 @@
             </tr>
             <%}%>
     </table>
-    <span id="add" onclick="addRow()">+</span><br>
+    <span id="add" onclick="addRow()">Add</span><br>
    <input type="submit" name="submit" value="Save all">
 </body>
 </form>

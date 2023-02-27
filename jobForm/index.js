@@ -742,7 +742,7 @@ app.post("/update", (req, res) => {
     console.log(relation);
     for (let i = 0; i < rname.length; i++) {
       db.query(
-        `update reference set rname = '${rname}',rcontact='${rcontact}',relation='${relation}' where applicant_id=${id}`,
+        `update reference set rname = '${rname[i]}',rcontact='${rcontact[i]}',relation='${relation[i]}' where applicant_id=${id}`,
         (err, result) => {
           if (err) throw err;
           console.log("ferences updated");

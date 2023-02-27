@@ -57,3 +57,21 @@ app.get('/add',(req,res)=>{
     res.redirect("exel")
   })
 })
+
+app.post('/saveAll',(req,res)=>{
+  const id = req.body.user_id;
+  const first_name = req.body.first_name;
+  const last_name = req.body.last_name;
+  const gender = req.body.gender;
+  const email = req.body.email;
+  const phone = req.body.phone;
+  console.log(id)
+
+  for(let i=0; i<id.length; i++){
+    let sql = `update users set first_name='${first_name[i]}',last_name='${last_name[i]}',gender='${gender[i]}',email='${email[i]}',phone='${phone[i]}' where id=${id[i]}`;
+    db.query(sql,(err,result)=>{
+      if(err) throw err;
+      console.log("updated all");
+    })
+  } 
+})

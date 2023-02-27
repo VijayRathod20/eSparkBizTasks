@@ -43,3 +43,17 @@ app.get('/save',(req,res)=>{
     console.log("updated!")
   });
 })
+
+app.get('/add',(req,res)=>{
+  var first_name = req.query.first_name;
+  var last_name = req.query.last_name;
+  var gender = req.query.gender;
+  var email = req.query.email;
+  var phone = req.query.phone;
+
+  db.query("insert into users(first_name,last_name,gender,email,phone) value(?,?,?,?,?)",[first_name,last_name,gender,email,phone],(err,result)=>{
+    if(err) throw err;
+    console.log("inserted")
+    res.redirect("exel")
+  })
+})

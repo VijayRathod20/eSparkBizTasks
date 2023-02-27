@@ -17,7 +17,7 @@
 
 <body>
     <!-- <form action="/save"> -->
-    <table>
+    <table id="row">
         <tr>
             <td>ID</td>
             <td>First Name</td>
@@ -26,7 +26,7 @@
             <td>Email</td>
             <td>Phone</td>
         </tr>
-        <div class="row">
+       
             <%for(let i=0; i<users.length; i++){%>
                 <tr>
                     <td>
@@ -52,13 +52,45 @@
                     <td><button type="submit" onclick="edit(`<%=users[i].id%>`)">Save</button></td>
                 </tr>
                 <%}%>
-        </div>
-    </table>
-<!-- </form> -->
-    <button id="add">+</button>
+               
+                
+</table>
+
+
+
+
+    <!-- </form> -->
+    <button id="add" onclick="addRow()">+</button>
 
 </body>
 <script>
+    function addRow() {
+        var row = document.getElementById("row");
+        const item =document.createElement("tr");
+        item.classList.add("row-item")
+        item.innerHTML = `
+      
+                    <td></td>
+                    <td>
+                    <input type="text" name="first_name" value="" id="fname">
+                    </td>
+                    <td>
+                        <input type="text" name="last_name" value="" id="lname">
+                    </td>
+                    <td>
+                        <input type="text" name="gender" value="" id="gen">
+                    </td>
+                    <td>
+                        <input type="text" name="email" value="" id="email">
+                    </td>
+                    <td>
+                        <input type="text" name="phone" value="" id="phone">
+                    </td>
+                    <td><button type="submit" onclick="add()">Save</button></td>
+  
+        `;
+        row.appendChild(item);
+    }
     async function edit(id) {
         var id = id;
         var first_name = document.getElementById(`fname${id}`).value;
@@ -67,6 +99,17 @@
         var email = document.getElementById(`email${id}`).value;
         var phone = document.getElementById(`phone${id}`).value;
         fetch(`http://localhost:8080/save?id=${id}&first_name=${first_name}&last_name=${last_name}&gender=${gender}&email=${email}&phone=${phone}`);
+
+    }
+    async function add(){
+        var first_name = document.getElementById("fname").value;
+        var last_name = document.getElementById("lname").value;
+        var gender = document.getElementById("gen").value;
+        var email = document.getElementById("email").value;
+        var  phone = document.getElementById("phone").value;
+
+        fetch(`http://localhost:8080/add?first_name=${first_name}&last_name=${last_name}&gender=${gender}&email=${email}&phone=${phone}`);
+        
 
     }
 

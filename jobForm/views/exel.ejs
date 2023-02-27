@@ -17,6 +17,14 @@
             border: 2px solid black;
            font-size: 50px;
         }
+        table{
+            background-image: linear-gradient(to bottom,lightblue,grey);
+        }
+        p{
+            color: rgb(0, 102, 128);
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -56,8 +64,6 @@
                 <td><p type="submit" onclick="edit(`<%=users[i].id%>`)">Save</p></td>
             </tr>
             <%}%>
-
-
     </table>
     <span id="add" onclick="addRow()">+</span><br>
    <input type="submit" name="submit" value="Save all">
@@ -77,21 +83,21 @@
       
                     <td></td>
                     <td>
-                    <input type="text" name="first_name" value="" id="fname">
+                    <input type="text" name="newfirst_name" value="" id="fname">
                     </td>
                     <td>
-                        <input type="text" name="last_name" value="" id="lname">
+                        <input type="text" name="newlast_name" value="" id="lname">
                     </td>
                     <td>
-                        <input type="text" name="gender" value="" id="gen">
+                        <input type="text" name="newgender" value="" id="gen">
                     </td>
                     <td>
-                        <input type="text" name="email" value="" id="email">
+                        <input type="text" name="newemail" value="" id="email">
                     </td>
                     <td>
-                        <input type="text" name="phone" value="" id="phone">
+                        <input type="text" name="newphone" value="" id="phone">
                     </td>
-                    <td><button type="submit" onclick="add()">Save</button></td>
+                    <td><p onclick="add()">Save</p></td>
         `;
         row.appendChild(item);
     }

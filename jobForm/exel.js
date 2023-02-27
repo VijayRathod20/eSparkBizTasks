@@ -65,8 +65,9 @@ app.post('/saveAll',(req,res)=>{
   const gender = req.body.gender;
   const email = req.body.email;
   const phone = req.body.phone;
-  console.log(id)
+  console.log(req.body);
 
+  
   for(let i=0; i<id.length; i++){
     let sql = `update users set first_name='${first_name[i]}',last_name='${last_name[i]}',gender='${gender[i]}',email='${email[i]}',phone='${phone[i]}' where id=${id[i]}`;
     db.query(sql,(err,result)=>{
@@ -74,4 +75,26 @@ app.post('/saveAll',(req,res)=>{
       console.log("updated all");
     })
   } 
+   
+ 
+  const fname = req.body.newfirst_name;
+  const lname = req.body.newlast_name;
+  const gen = req.body.newgender;
+  const em = req.body.newemail;
+  const ph = req.body.newphone;
+  console.log(typeof("type"+first_name));
+  if(typeof(fname) == "string"){
+    db.query('insert into users(first_name,last_name,gender,email,phone) value(?,?,?,?,?)',[fname,lname,gen,em,ph],(err,result)=>{
+      if(err) throw err;
+      console.log("inserted one")
+    })
+  }else if(typeof(fname) == "object"){
+    for(let j=0; j<fname.length; j++){
+      db.query('insert into users(first_name,last_name,gender,email,phone) value(?,?,?,?,?)',[fname[j],lname[j],gen[j],em[j],ph[j]],(err,result)=>{
+        if(err) throw err;
+        console.log("inserted all")
+      })
+    }
+  }
+  
 })

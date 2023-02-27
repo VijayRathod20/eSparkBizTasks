@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    <!-- <form action="/save"> -->
     <table>
         <tr>
             <td>ID</td>
@@ -53,28 +54,21 @@
                 <%}%>
         </div>
     </table>
+<!-- </form> -->
     <button id="add">+</button>
 
 </body>
 <script>
-    function edit(id) {
-        const response = fetch(`http://localhost:8080/save?id=${id}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id
-            })
-        }).then(res => res.json())
-            .then(data => {
-                if (data) {
-                    alert("updated successfully!");
-                }
-            })
-    }
+    async function edit(id) {
+        var id = id;
+        var first_name = document.getElementById(`fname${id}`).value;
+        var last_name = document.getElementById(`lname${id}`).value;
+        var gender = document.getElementById(`gen${id}`).value;
+        var email = document.getElementById(`email${id}`).value;
+        var phone = document.getElementById(`phone${id}`).value;
+        fetch(`http://localhost:8080/save?id=${id}&first_name=${first_name}&last_name=${last_name}&gender=${gender}&email=${email}&phone=${phone}`);
 
-   
+    }
 
 </script>
 

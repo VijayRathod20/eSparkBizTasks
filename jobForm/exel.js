@@ -31,18 +31,15 @@ app.get('/exel',(req,res)=>{
 });
 })
 
-app.post('/save',(req,res)=>{
+app.get('/save',(req,res)=>{
   const id = req.query.id;
-  const first_name = req.body.first_name;
-  const last_name = req.body.last_name;
-  const gender = req.body.gender;
-  const email = req.body.email;
-  const phone = req.body.phone;
-//   db.query('UPDATE users SET first_name = ?, last_name=?, gender=?,email=?,phone=? WHERE id = ?', [first_name,last_name,gender,email,phone,id], (error, results) => {
-//     if (error) throw error;
-db.query(`delete from users where id=${id}`,(err,result)=>{
-    if(err) throw err;
-    res.redirect('/exel');
-    
-  })
+  const first_name = req.query.first_name;
+  const last_name = req.query.last_name;
+  const gender = req.query.gender;
+  const email = req.query.email;
+  const phone = req.query.phone;
+  db.query('UPDATE users SET first_name = ?, last_name=?, gender=?,email=?,phone=? WHERE id = ?', [first_name,last_name,gender,email,phone,id], (error, results) => {
+    if (error) throw error;
+    console.log("updated!")
+  });
 })

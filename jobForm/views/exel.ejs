@@ -18,12 +18,18 @@
            font-size: 50px;
         }
         table{
-            background-image: linear-gradient(to bottom,lightblue,grey);
+            background-color: #cfe0e8;
         }
         p{
-            color: rgb(0, 102, 128);
+            color: navy;
             font-weight: bold;
             cursor: pointer;
+            border: 3px solid black;
+            padding: 5px;
+            background-color: white;
+        }
+        input{
+            padding: 10px;
         }
     </style>
 </head>
@@ -61,7 +67,8 @@
                 <td>
                     <input type="text" name="phone" value="<%=users[i].phone%>" id="phone<%=users[i].id%>">
                 </td>
-                <td><p type="submit" onclick="edit(`<%=users[i].id%>`)">Save</p></td>
+                <td><p onclick="edit(`<%=users[i].id%>`)">Save</p></td>
+                <td><p onclick="del(`<%=users[i].id%>`)">Delete</p></td>
             </tr>
             <%}%>
     </table>
@@ -122,7 +129,11 @@
 
 
     }
-   
+   async function del(uid){
+    var uid = uid;
+    fetch(`http://localhost:8080/delete?uid=${uid}`);
+    location.reload();
+   }
 
 </script>
 

@@ -98,3 +98,12 @@ app.post('/saveAll',(req,res)=>{
   }
   
 })
+
+app.get('/delete',(req,res)=>{
+  const uid = req.query.uid;
+  db.query(`delete from users where id = ${uid}`,(err,result)=>{
+    if(err) throw err;
+    console.log("deleted");
+    
+  })
+})

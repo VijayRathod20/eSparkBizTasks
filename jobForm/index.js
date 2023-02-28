@@ -127,9 +127,7 @@ app.post("/submit", (req, res) => {
   const city = req.body.city;
   let stateName = '';
   console.log(city);
-  db.query(`select * from state_master where id = ${state}`, (err, result) => {
-    console.log(result[0].state);
-    stateName = result[0].state;
+ 
 
     const basicSql = `INSERT INTO basic_info (first_name,last_name,gender,dob,job_designation,address1,email,phone,city,state,zip,relation_status)
    VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`;
@@ -143,7 +141,7 @@ app.post("/submit", (req, res) => {
       data.email,
       data.phone,
       data.city,
-      stateName,
+      state,
       data.zip,
       data.relation_status,
     ];
@@ -279,7 +277,7 @@ app.post("/submit", (req, res) => {
       values('${applicantId}','${rname[i]}','${rcontact[i]}','${relation[i]}')`,
           (err, result) => {
             if (err) throw err;
-            console.log("ferences inserted");
+            console.log("references inserted");
           }
         );
       }
@@ -302,7 +300,7 @@ app.post("/submit", (req, res) => {
     });
   });
 
-});
+
 
 
 var limit = 10;
@@ -638,7 +636,10 @@ app.post("/update", (req, res) => {
     //     });
     //   }
     // }
-
+     db.query(`delete from work_experience where applicant_id = ${id}`,(err,result)=>{
+      if(err) throw err;
+      console.log("work experience deleted!");
+     })
     const c_name = req.body.company_name;
     const desig = req.body.jobtitle;
     const start = req.body.start_date;
@@ -648,21 +649,26 @@ app.post("/update", (req, res) => {
     console.log(start);
     console.log(end);
     if (typeof (c_name, desig, start, end) == "string") {
-      expSql = `update work_experience set company_name='${c_name}',jobtitle='${desig}',start_date='${start}',end_date='${end}' where applicant_id=${id}`;
+      expSql = `insert into work_experience(applicant_id,company_name,jobtitle,start_date,end_date) values
+    ('${applicantId}','${c_name}','${desig}','${start}','${end}')`;
+
       db.query(expSql, (err, result) => {
         if (err) throw err;
-        console.log("exp updated");
+        console.log("exp inserted");
       });
     } else {
       for (i = 0; i < c_name.length; i++) {
-        expSql = `update work_experience set company_name='${c_name[i]}',jobtitle='${desig[i]}',start_date='${start[i]}',end_date='${end[i]}' where applicant_id=${id}`;
+        expSql = `insert into work_experience(applicant_id,company_name,jobtitle,start_date,end_date) values
+    ('${applicantId}','${c_name[i]}','${desig[i]}','${start[i]}','${end[i]}')`;
 
         db.query(expSql, (err, result) => {
           if (err) throw err;
-          console.log("exp updated");
+          console.log("exp inserted");
         });
       }
     }
+
+    
     
     ////languages
     db.query(`delete from LanguagesKnown where applicant_id=${id}`,(err,result)=>{
@@ -733,19 +739,21 @@ app.post("/update", (req, res) => {
       });
     }
 
+    db.query(`delete from reference where applicant_id = ${id}`,(err,result)=>{
+      if(err) throw err;
+      console.log("references deleted")
+    });
     //getting references
     const rname = data.rname;
     const rcontact = data.rcontact;
     const relation = data.relation;
-    console.log(rname);
-    console.log(rcontact);
-    console.log(relation);
     for (let i = 0; i < rname.length; i++) {
       db.query(
-        `update reference set rname = '${rname[i]}',rcontact='${rcontact[i]}',relation='${relation[i]}' where applicant_id=${id}`,
+        `insert into reference(applicant_id,rname,rcontact,relation) 
+    values('${applicantId}','${rname[i]}','${rcontact[i]}','${relation[i]}')`,
         (err, result) => {
           if (err) throw err;
-          console.log("ferences updated");
+          console.log("ferences inserted");
         }
       );
     }

@@ -286,48 +286,48 @@
                 <table>
                     <%language.forEach(function(lan) {%>
                         <%var flag=0 %>
-                        
-                        <tr>
-                            <%for(var j=0; j<lang.length; j++){%>
-                                <%if(lang[j].Language == lan.option_name){%>
-                                    <%flag=1%>
-                            <td>
-                                <%=lan.option_name%><input type="checkbox" value="<%=lan.option_name%>" name="Language" checked
-                                            />
-                            </td>
-                            <td>
-                                Read:<input type="checkbox" name="<%=lan.option_name%>read" value="yes"
-                                    <%if(lang[j].read == "yes"){%>checked<%}%>
-                                            />
-                            </td>
-                            <td>
-                                Write:<input type="checkbox" name="<%=lan.option_name%>write" value="yes" <%if(lang[j].write == "yes"){%>checked<%}%> />
-                            </td>
-                            <td>
-                                Speak:<input type="checkbox" name="<%=lan.option_name%>speak" value="yes" <%if(lang[j].speak == "yes"){%>checked<%}%>/>
-                            </td>
-                        </tr>
-                        <%}%>
-                        <%}%>
-                        <%if(flag == 0){%>
-                        
-                                <td>
-                                    <%=lan.option_name%><input type="checkbox" value="<%=lan.option_name%>" name="Language" 
-                                                />
-                                </td>
-                                <td>
-                                    Read:<input type="checkbox" name="<%=lan.option_name%>read" value="yes"
-                                     
-                                                />
-                                </td>
-                                <td>
-                                    Write:<input type="checkbox" name="<%=lan.option_name%>write" value="yes"  />
-                                </td>
-                                <td>
-                                    Speak:<input type="checkbox" name="<%=lan.option_name%>speak" value="yes"/>
-                                </td>
+
+                            <tr>
+                                <%for(var j=0; j<lang.length; j++){%>
+                                    <%if(lang[j].Language==lan.option_name){%>
+                                        <%flag=1%>
+                                            <td>
+                                                <%=lan.option_name%><input type="checkbox" value="<%=lan.option_name%>"
+                                                        name="Language" checked />
+                                            </td>
+                                            <td>
+                                                Read:<input type="checkbox" name="<%=lan.option_name%>read" value="yes"
+                                                    <%if(lang[j].read=="yes" ){%>checked<%}%>
+                                                    />
+                                            </td>
+                                            <td>
+                                                Write:<input type="checkbox" name="<%=lan.option_name%>write"
+                                                    value="yes" <%if(lang[j].write=="yes" ){%>checked<%}%> />
+                                            </td>
+                                            <td>
+                                                Speak:<input type="checkbox" name="<%=lan.option_name%>speak"
+                                                    value="yes" <%if(lang[j].speak=="yes" ){%>checked<%}%>/>
+                                            </td>
+                            </tr>
                             <%}%>
-                        <%});%>
+                                <%}%>
+                                    <%if(flag==0){%>
+
+                                        <td>
+                                            <%=lan.option_name%><input type="checkbox" value="<%=lan.option_name%>"
+                                                    name="Language" />
+                                        </td>
+                                        <td>
+                                            Read:<input type="checkbox" name="<%=lan.option_name%>read" value="yes" />
+                                        </td>
+                                        <td>
+                                            Write:<input type="checkbox" name="<%=lan.option_name%>write" value="yes" />
+                                        </td>
+                                        <td>
+                                            Speak:<input type="checkbox" name="<%=lan.option_name%>speak" value="yes" />
+                                        </td>
+                                        <%}%>
+                                            <%});%>
 
 
                 </table>
@@ -338,34 +338,39 @@
                 <table>
                     <% tec.forEach(function(t) {%>
                         <%var flag=0 %>
-                        <tr>
-                            <%for(var j=0; j<skill.length; j++){%>
-                                <%if(skill[j].technology == t.option_name){%>
-                                    <%flag=1%>
-                            <td>
-                                <%=t.option_name%><input type="checkbox" value="<%=t.option_name%>" name="technology" checked />
-                            </td>
-                            <td>Beginner: <input type="radio" name="<%=t.option_name%>a" value="beginner" 
-                                <%if(skill[j].lavel == "beginner"){%>checked<%}%>/></td>
-                            <td>Intermediate: <input type="radio" name="<%=t.option_name%>a" value="Intermediate" <%if(skill[j].lavel == "Intermediate"){%>checked<%}%>/>
-                            </td>
-                            <td>Expert:<input type="radio" name="<%=t.option_name%>a" value="Expert" 
-                                <%if(skill[j].lavel == "Expert"){%>checked<%}%>/></td>
-                        </tr>
-                        <%}%>
-                        <%}%>
-                        <%if(flag == 0){%>
-                            <td>
-                                <%=t.option_name%><input type="checkbox" value="<%=t.option_name%>" name="technology"/>
-                            </td>
-                            <td>Beginner: <input type="radio" name="<%=t.option_name%>a" value="beginner" 
-                            /></td>
-                            <td>Intermediate: <input type="radio" name="<%=t.option_name%>a" value="Intermediate"/>
-                            </td>
-                            <td>Expert:<input type="radio" name="<%=t.option_name%>a" value="Expert" 
-                                /></td>
+                            <tr>
+                                <%for(var j=0; j<skill.length; j++){%>
+                                    <%if(skill[j].technology==t.option_name){%>
+                                        <%flag=1%>
+                                            <td>
+                                                <%=t.option_name%><input type="checkbox" value="<%=t.option_name%>"
+                                                        name="technology" checked />
+                                            </td>
+                                            <td>Beginner: <input type="radio" name="<%=t.option_name%>a"
+                                                    value="beginner" <%if(skill[j].lavel=="beginner" ){%>checked<%}%>/>
+                                            </td>
+                                            <td>Intermediate: <input type="radio" name="<%=t.option_name%>a"
+                                                    value="Intermediate" <%if(skill[j].lavel=="Intermediate" ){%>checked
+                                                <%}%>/>
+                                            </td>
+                                            <td>Expert:<input type="radio" name="<%=t.option_name%>a" value="Expert"
+                                                    <%if(skill[j].lavel=="Expert" ){%>checked<%}%>/></td>
+                            </tr>
+                            <%}%>
                                 <%}%>
-                        <%});%>
+                                    <%if(flag==0){%>
+                                        <td>
+                                            <%=t.option_name%><input type="checkbox" value="<%=t.option_name%>"
+                                                    name="technology" />
+                                        </td>
+                                        <td>Beginner: <input type="radio" name="<%=t.option_name%>a" value="beginner" />
+                                        </td>
+                                        <td>Intermediate: <input type="radio" name="<%=t.option_name%>a"
+                                                value="Intermediate" />
+                                        </td>
+                                        <td>Expert:<input type="radio" name="<%=t.option_name%>a" value="Expert" /></td>
+                                        <%}%>
+                                            <%});%>
                 </table>
             </fieldset>
         </div>
@@ -386,7 +391,7 @@
                         <input type="text" name="relation" value="<%=ref[0].relation%>" />
                     </td>
                 </tr>
-                <!-- <tr>
+                <tr>
                     <td>
                         Name:
                         <input type="text" name="rname" value="<%=ref[1].rname%>" />
@@ -399,7 +404,7 @@
                         Relation:
                         <input type="text" name="relation" value="<%=ref[1].relation%>" />
                     </td>
-                </tr> -->
+                </tr>
             </table>
         </fieldset>
         <fieldset>
@@ -413,8 +418,8 @@
                         <select name="location">
                             <%location.forEach(function(loc) {%>
 
-                                <%if(pref[0].location==loc){%>
-                                    <option value="<%=loc.option_name%>">
+                                <%if(pref[0].location==loc.option_name){%>
+                                    <option value="<%=loc.option_name%>" selected>
                                         <%=loc.option_name%>
                                     </option>
                                     <%}else{ %>
@@ -435,7 +440,7 @@
                         <label for="department">Department:</label>
                         <select name="department">
                             <% dep.forEach(function(d) {%>
-                                <%if(pref[0].department==d){%>
+                                <%if(pref[0].department==d.option_name){%>
                                     <option value="<%=d.option_name%>" selected>
                                         <%=d.option_name%>
                                     </option>
